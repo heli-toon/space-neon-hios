@@ -1,0 +1,127 @@
+# Space Neon Minimal — Tecno HiOS & Infinix XOS Theme
+
+An ultra-minimal, high-contrast dark theme designed for **Tecno (HiOS)** and **Infinix (XOS)** smartphones, ported directly from the [Space Neon Plasma](../space-neon-plasma) desktop project.
+
+Deep space blacks (`#0A0A0B`), grayscale hierarchy, and vibrant neon orange (`#FF6B00`) accents packaged into official Transsion `.zth` (Zip Theme for HiOS) and `.xth` (XOS) bundles.
+
+![Theme Preview](preview.jpg)
+
+---
+
+## Highlights & Features
+
+- **Cyber Deep Space Aesthetic**: Pure `#0A0A0B` obsidian background designed for OLED / AMOLED energy efficiency and eye comfort.
+- **Vibrant Neon Orange Accents**: Highlight color (`#FF6B00`) applied to borders, indicators, and primary action glyphs.
+- **55+ Hand-Crafted Themed Icons**: Precision squircle icons covering Tecno stock apps (Smart Caller, AI Gallery, File Manager, HiTheme, HiOS Launcher), Google Suite (Chrome, Play Store, YouTube, Maps, Gmail), and top social / developer tools (WhatsApp, Telegram, Termux, GitHub, Antigravity IDE).
+- **Universal Launcher Masking**: Includes `icon_background.png`, `icon_border.png`, and `icon_mask.png` so unthemed 3rd-party apps match the dark squircle aesthetic automatically.
+- **Mobile-Optimized 1080×2400 Wallpapers**: 6 cropped high-resolution wallpapers tailored for tall 20:9 Transsion displays + original 4K desktop editions.
+- **Multi-Method Deployment**:
+  1. **1-Click ADB Installer** (`./adb_deploy.sh`) — Bypasses Android 13/14/15 scoped storage restrictions instantly.
+  2. **Manual File Transfer** — Direct drop into `Android/data/.../DIY` using MT Manager, ZArchiver, or Shizuku.
+  3. **Community Theme Creation Tool** — Ready-to-import raw 256×256 and 512×512 transparent monochrome PNGs.
+
+---
+
+## Repository Structure
+
+```text
+space-neon-hios/
+├── SpaceNeonMinimal.zth       # Ready-to-apply Tecno HiOS theme package
+├── SpaceNeonMinimal.xth       # Ready-to-apply Infinix XOS theme package
+├── preview.jpg                # Homescreen preview mockup
+├── adb_deploy.sh              # 1-click ADB deploy script for connected phones
+├── README.md                  # This file
+├── INSTALL_HIOS.md            # Detailed HiOS manual installation guide
+├── THEME_CREATION_TOOL_GUIDE.md # Guide to Nadeem Haider's Theme Creation Tool
+├── builder/
+│   └── build_theme.py         # Full automated compilation & asset generation engine
+├── theme_src/                 # Unpacked theme source assets
+│   ├── description.xml        # Theme metadata passport
+│   ├── manifest.xml           # Module definitions
+│   ├── Icons/                 # Package-mapped 192x192 squircle PNGs + mask fallbacks
+│   ├── Wallpaper/             # Theme wallpapers (default, home, lock)
+│   ├── Preview/               # Homescreen & lockscreen store mockups
+│   └── Thumbnail/             # HiTheme DIY picker thumbnail
+├── wallpapers/                # 6 mobile (1080x2400) + desktop wallpapers
+├── raw_monochrome_pngs_256/   # 256x256 transparent PNGs for desktop tools
+└── raw_monochrome_pngs_512/   # 512x512 transparent PNGs for desktop tools
+```
+
+---
+
+## Quick Installation
+
+### Method 1: One-Click ADB Deploy (Recommended)
+
+This method bypasses modern Android scoped storage restrictions without needing root or third-party file managers on your phone:
+
+1. Enable **Developer Options** on your Tecno phone:
+   - Go to **Settings → My Phone / About Phone**.
+   - Tap **Build Number** 7 times until you see *"You are now a developer!"*.
+   - Go to **Settings → System → Developer Options** and enable **USB Debugging**.
+2. Connect your phone to your computer via USB.
+3. Run the deployment script from this directory:
+   ```bash
+   chmod +x adb_deploy.sh
+   ./adb_deploy.sh
+   ```
+4. Open the **Hi Theme** app on your phone, go to **Me / My Themes → DIY**, tap **Space Neon Minimal**, and hit **Apply**.
+
+---
+
+### Method 2: Manual Installation via Phone File Manager
+
+If you prefer transferring the file via USB or downloading it directly to your phone:
+
+1. Copy `SpaceNeonMinimal.zth` to your phone's internal storage.
+2. Using **MT Manager** or **ZArchiver** (required to access `Android/data` on modern Android versions), copy `SpaceNeonMinimal.zth` to the matching directory for your HiOS version:
+   - **HiOS 15 and newer**:
+     `Internal Storage/Android/data/com.transsion.theme/files/DIY/`
+   - **HiOS 14.5 and older**:
+     `Internal Storage/Android/data/com.transsion.hilauncher/files/DIY/`
+     *(or `Internal Storage/HiTheme/DIY/`)*
+3. Open the **Hi Theme** app.
+4. Navigate to **My Themes / DIY**, select **Space Neon Minimal**, and tap **Apply**.
+
+---
+
+### Method 3: Using the Community Theme Creation Tool
+
+If you want to customize icons, re-map packages, or preview layouts using Nadeem Haider's **Infinix & Tecno Theme Creation Tool**:
+
+1. Load the raw PNGs from `raw_monochrome_pngs_256/` or `raw_monochrome_pngs_512/`.
+2. Load `wallpapers/space-neon-orange-nebula-phone.jpg` into the Wallpaper tab.
+3. Use the tool's built-in icon mapper and preview engine.
+4. Export as `.zth` and hit **Send to Mobile** (over USB debugging).
+
+See [`THEME_CREATION_TOOL_GUIDE.md`](THEME_CREATION_TOOL_GUIDE.md) for full walkthrough and download channels.
+
+---
+
+## Re-building or Customizing the Theme
+
+You can customize colors, add new package mappings, or recompile the archives at any time:
+
+```bash
+python3 builder/build_theme.py
+```
+
+The builder will regenerate all themed squircle icons, wallpaper crops, store previews, and package fresh `SpaceNeonMinimal.zth` and `SpaceNeonMinimal.xth` files.
+
+---
+
+## Palette Reference
+
+| Element | Hex Color | RGB | Description |
+|---|---|---|---|
+| Deep Space Base | `#0A0A0B` | `10, 10, 11` | Pure OLED obsidian black |
+| UI Surface | `#0E0F13` | `14, 15, 19` | Icon squircle dark body |
+| Neon Accent | `#FF6B00` | `255, 107, 0` | Primary glow & system borders |
+| Glyph Primary | `#FFFFFF` | `255, 255, 255` | Crisp white iconography |
+| Dim Gray | `#2A2B32` | `42, 43, 50` | Dividers & inactive elements |
+
+---
+
+## License
+
+MIT — Designed to match the [Space Neon Plasma](../space-neon-plasma) theme.

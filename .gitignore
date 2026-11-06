@@ -1,0 +1,7 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Local temporary files
+*.tmp
+.DS_Store
