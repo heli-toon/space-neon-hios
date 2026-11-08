@@ -105,12 +105,12 @@ VECTOR_GLYPHS = {
 }
 
 # Mapping: Package Name -> (Source Icon Type, File/Key, Glyph Accent Color, Description)
-# System / Core apps use HEX_ORANGE, Third-party apps use HEX_WHITE or HEX_ORANGE
+# All icons use uniform YAMIS-styled pure white monochrome glyphs (HEX_WHITE)
 APP_MAPPINGS = [
     # Dialer / Phone
-    ("com.sh.smart.caller", "yamis_device", "phone.svg", HEX_ORANGE, "Tecno Smart Caller / Phone"),
-    ("com.android.dialer", "yamis_device", "phone.svg", HEX_ORANGE, "AOSP Dialer"),
-    ("com.google.android.dialer", "yamis_device", "phone.svg", HEX_ORANGE, "Google Phone"),
+    ("com.sh.smart.caller", "yamis_device", "phone.svg", HEX_WHITE, "Tecno Smart Caller / Phone"),
+    ("com.android.dialer", "yamis_device", "phone.svg", HEX_WHITE, "AOSP Dialer"),
+    ("com.google.android.dialer", "yamis_device", "phone.svg", HEX_WHITE, "Google Phone"),
 
     # SMS / Messaging
     ("com.android.mms", "vector", "message", HEX_WHITE, "Tecno Messages"),
@@ -121,12 +121,13 @@ APP_MAPPINGS = [
     ("com.google.android.contacts", "vector", "contacts", HEX_WHITE, "Google Contacts"),
 
     # Settings
-    ("com.android.settings", "yamis_app", "systemsettings.svg", HEX_ORANGE, "System Settings"),
+    ("com.android.settings", "yamis_app", "systemsettings.svg", HEX_WHITE, "System Settings"),
+    ("com.transsion.settings", "yamis_app", "systemsettings.svg", HEX_WHITE, "Tecno Settings"),
 
     # Camera
-    ("com.transsion.camera", "yamis_device", "camera-photo.svg", HEX_ORANGE, "Tecno Camera"),
-    ("com.android.camera", "yamis_device", "camera-photo.svg", HEX_ORANGE, "AOSP Camera"),
-    ("com.google.android.GoogleCamera", "yamis_device", "camera-photo.svg", HEX_ORANGE, "Google Camera"),
+    ("com.transsion.camera", "yamis_device", "camera-photo.svg", HEX_WHITE, "Tecno Camera"),
+    ("com.android.camera", "yamis_device", "camera-photo.svg", HEX_WHITE, "AOSP Camera"),
+    ("com.google.android.GoogleCamera", "yamis_device", "camera-photo.svg", HEX_WHITE, "Google Camera"),
 
     # Gallery / Photos
     ("com.transsion.aigallery", "vector", "gallery", HEX_WHITE, "Tecno AI Gallery"),
@@ -152,12 +153,12 @@ APP_MAPPINGS = [
     ("com.google.android.calendar", "vector", "calendar", HEX_WHITE, "Google Calendar"),
 
     # HiTheme / XTheme
-    ("com.transsion.theme", "vector", "theme", HEX_ORANGE, "Tecno HiTheme Store"),
-    ("com.transsion.xtheme", "vector", "theme", HEX_ORANGE, "Infinix XTheme"),
-    ("com.transsion.magicshow", "vector", "theme", HEX_ORANGE, "Tecno Magic Show DIY"),
+    ("com.transsion.theme", "vector", "theme", HEX_WHITE, "Tecno HiTheme Store"),
+    ("com.transsion.xtheme", "vector", "theme", HEX_WHITE, "Infinix XTheme"),
+    ("com.transsion.magicshow", "vector", "theme", HEX_WHITE, "Tecno Magic Show DIY"),
 
     # Launcher
-    ("com.transsion.hilauncher", "vector", "launcher", HEX_ORANGE, "HiOS Launcher"),
+    ("com.transsion.hilauncher", "vector", "launcher", HEX_WHITE, "HiOS Launcher"),
 
     # Weather
     ("com.transsion.weather", "vector", "weather", HEX_WHITE, "Tecno Weather"),
@@ -170,14 +171,11 @@ APP_MAPPINGS = [
     ("com.android.soundrecorder", "yamis_device", "audio-input-microphone.svg", HEX_WHITE, "Tecno Sound Recorder"),
     ("com.transsion.soundrecorder", "yamis_device", "audio-input-microphone.svg", HEX_WHITE, "Tecno Sound Recorder 2"),
 
-    # Music / Boomplay
-    ("com.afmobi.boomplayer", "yamis_device", "audio-headphones.svg", HEX_ORANGE, "Boomplay Music"),
-    ("com.google.android.apps.youtube.music", "yamis_app", "youtube-music.svg", HEX_ORANGE, "YouTube Music"),
-    ("com.spotify.music", "yamis_app", "spotify.svg", HEX_WHITE, "Spotify"),
+    # Music / Audio
+    ("com.google.android.apps.youtube.music", "yamis_app", "youtube-music.svg", HEX_WHITE, "YouTube Music"),
 
     # Browser
     ("com.android.chrome", "yamis_app", "google-chrome.svg", HEX_WHITE, "Google Chrome"),
-    ("com.transsion.phoenix", "yamis_app", "google-chrome.svg", HEX_WHITE, "Phoenix Browser"),
     ("org.mozilla.firefox", "yamis_app", "google-chrome.svg", HEX_WHITE, "Firefox"),
 
     # App Store
@@ -185,7 +183,7 @@ APP_MAPPINGS = [
 
     # Google Apps
     ("com.google.android.gm", "vector", "message", HEX_WHITE, "Gmail"),
-    ("com.google.android.youtube", "vector", "youtube", HEX_ORANGE, "YouTube"),
+    ("com.google.android.youtube", "vector", "youtube", HEX_WHITE, "YouTube"),
     ("com.google.android.googlequicksearchbox", "vector", "search", HEX_WHITE, "Google Search"),
     ("com.google.android.apps.maps", "vector", "compass", HEX_WHITE, "Google Maps"),
 
@@ -197,12 +195,16 @@ APP_MAPPINGS = [
     ("com.instagram.android", "vector", "instagram", HEX_WHITE, "Instagram"),
     ("com.twitter.android", "vector", "twitter", HEX_WHITE, "Twitter / X"),
 
+    # Productivity, Knowledge & Device Integration (from applist.md)
+    ("io.anytype.app", "yamis_app", "anytype.svg", HEX_WHITE, "Anytype"),
+    ("io.anytype.mobile", "yamis_app", "anytype.svg", HEX_WHITE, "Anytype Mobile"),
+    ("org.kde.kdeconnect_tp", "yamis_app", "kdeconnect.svg", HEX_WHITE, "KDE Connect"),
+    ("org.kde.kdeconnect", "yamis_app", "kdeconnect.svg", HEX_WHITE, "KDE Connect Alternate"),
+
     # Developer & Power Tools
-    ("com.termux", "yamis_app", "utilities-terminal.svg", HEX_ORANGE, "Termux Terminal"),
+    ("com.termux", "yamis_app", "utilities-terminal.svg", HEX_WHITE, "Termux Terminal"),
     ("com.github.android", "yamis_app", "appimagekit-github-desktop.svg", HEX_WHITE, "GitHub"),
-    ("org.videolan.vlc", "yamis_app", "vlc.svg", HEX_ORANGE, "VLC Media Player"),
-    ("com.antigravity", "plasma_icon", "antigravity.svg", HEX_ORANGE, "Antigravity IDE"),
-    ("com.google.android.apps.nexuslauncher", "vector", "launcher", HEX_WHITE, "Nexus Launcher")
+    ("org.videolan.vlc", "yamis_app", "vlc.svg", HEX_WHITE, "VLC Media Player")
 ]
 
 
@@ -228,12 +230,13 @@ def resolve_svg_content(icon_type, filename_or_key, color_hex):
     with open(path, "r", errors="ignore") as f:
         content = f.read()
 
-    # Normalize colors to target hex
-    if "ColorScheme-Text" in content:
-        content = content.replace("#d8dee9", color_hex).replace("#ffffff", color_hex).replace("#FFFFFF", color_hex)
-    else:
-        # Simple replacement
-        content = content.replace("currentColor", color_hex).replace("#232629", color_hex)
+    # Normalize colors to target hex (replace stylesheet definitions and inline currentColor)
+    content = (content
+               .replace("currentColor", color_hex)
+               .replace("#232629", color_hex)
+               .replace("#d8dee9", color_hex)
+               .replace("#ffffff", color_hex)
+               .replace("#FFFFFF", color_hex))
     return content
 
 
@@ -287,9 +290,11 @@ def create_raw_transparent_icon(svg_content, size=256, glyph_hex=HEX_WHITE):
 def generate_all_icons():
     """Generates all themed HiOS package icons, fallbacks, and raw transparent PNGs."""
     print("Generating HiOS / XOS Themed Icons...")
-    os.makedirs(ICONS_DIR, exist_ok=True)
-    os.makedirs(RAW_PNG_256_DIR, exist_ok=True)
-    os.makedirs(RAW_PNG_512_DIR, exist_ok=True)
+    # Clean previous generated icons to prevent removed apps from persisting
+    for d in [ICONS_DIR, RAW_PNG_256_DIR, RAW_PNG_512_DIR]:
+        if os.path.exists(d):
+            shutil.rmtree(d)
+        os.makedirs(d, exist_ok=True)
 
     generated_count = 0
     for pkg, itype, key, hex_color, desc in APP_MAPPINGS:
@@ -423,10 +428,10 @@ def generate_previews():
         ("com.android.settings", "Settings"),
         ("com.android.vending", "Play Store"),
         ("com.google.android.youtube", "YouTube"),
-        ("com.whatsapp", "WhatsApp"),
-        ("org.telegram.messenger", "Telegram"),
+        ("io.anytype.app", "Anytype"),
+        ("org.kde.kdeconnect_tp", "KDE Connect"),
         ("com.termux", "Termux"),
-        ("com.antigravity", "Antigravity")
+        ("com.transsion.calculator", "Calculator")
     ]
 
     col_w = 1080 // 4
@@ -448,7 +453,7 @@ def generate_previews():
 
     # Dock Bar
     draw.rounded_rectangle([60, 2060, 1020, 2260], radius=50, fill=(12, 13, 16, 220), outline=(255, 107, 0, 160), width=2)
-    dock_pkgs = ["com.sh.smart.caller", "com.android.mms", "com.android.chrome", "com.antigravity"]
+    dock_pkgs = ["com.sh.smart.caller", "com.android.mms", "com.android.chrome", "com.android.settings"]
     dock_col_w = (1020 - 60) // 4
     for idx, pkg in enumerate(dock_pkgs):
         x = 60 + idx * dock_col_w + (dock_col_w - 130) // 2
@@ -469,17 +474,19 @@ def generate_previews():
 
     # Minimal notification card
     draw_ls.rounded_rectangle([100, 950, 980, 1150], radius=40, fill=(14, 15, 20, 220), outline=(255, 107, 0, 140), width=2)
-    ag_icon_f = os.path.join(ICONS_DIR, "com.antigravity.png")
-    if os.path.exists(ag_icon_f):
-        ag_ic = Image.open(ag_icon_f).resize((90, 90), Image.Resampling.LANCZOS)
-        ls_preview.paste(ag_ic, (140, 995), ag_ic)
-    draw_ls.text((260, 1005), "Antigravity Assistant", fill=(255, 107, 0), font=font_date)
-    draw_ls.text((260, 1065), "Space Neon Plasma theme exported successfully.", fill=(200, 200, 200), font=font_label)
+    kdec_icon_f = os.path.join(ICONS_DIR, "org.kde.kdeconnect_tp.png")
+    if os.path.exists(kdec_icon_f):
+        kdec_ic = Image.open(kdec_icon_f).resize((90, 90), Image.Resampling.LANCZOS)
+        ls_preview.paste(kdec_ic, (140, 995), kdec_ic)
+    draw_ls.text((260, 1005), "KDE Connect", fill=(255, 107, 0), font=font_date)
+    draw_ls.text((260, 1065), "Device connected: Space Neon Minimal active.", fill=(200, 200, 200), font=font_label)
 
     ls_preview.save(os.path.join(PREVIEW_DIR, "preview_1.jpg"), "JPEG", quality=90)
 
     # Cover image
     hs_preview.save(os.path.join(PREVIEW_DIR, "cover.jpg"), "JPEG", quality=90)
+    hs_preview.save(os.path.join(BASE_DIR, "preview.jpg"), "JPEG", quality=90)
+    hs_preview.save(os.path.join(BASE_DIR, "preview_cover.jpg"), "JPEG", quality=90)
 
     # Thumbnail for local DIY picker (450x1000)
     thumb = hs_preview.resize((450, 1000), Image.Resampling.LANCZOS)
@@ -496,7 +503,7 @@ def create_manifests():
     desc_xml = """<?xml version="1.0" encoding="utf-8"?>
 <theme>
     <title>Space Neon Minimal</title>
-    <author>heli-toon &amp; Antigravity</author>
+    <author>heli-toon</author>
     <designer>heli-toon</designer>
     <version>1.0.0</version>
     <formatVersion>1</formatVersion>
@@ -515,7 +522,7 @@ def create_manifests():
 <manifest>
     <theme-name>Space Neon Minimal</theme-name>
     <version>1.0.0</version>
-    <author>heli-toon &amp; Antigravity</author>
+    <author>heli-toon</author>
     <modules>
         <module name="com.transsion.hilauncher" />
         <module name="com.transsion.xoslauncher" />

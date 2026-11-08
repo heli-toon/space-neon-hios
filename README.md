@@ -12,7 +12,7 @@ Deep space blacks (`#0A0A0B`), grayscale hierarchy, and vibrant neon orange (`#F
 
 - **Cyber Deep Space Aesthetic**: Pure `#0A0A0B` obsidian background designed for OLED / AMOLED energy efficiency and eye comfort.
 - **Vibrant Neon Orange Accents**: Highlight color (`#FF6B00`) applied to borders, indicators, and primary action glyphs.
-- **55+ Hand-Crafted Themed Icons**: Precision squircle icons covering Tecno stock apps (Smart Caller, AI Gallery, File Manager, HiTheme, HiOS Launcher), Google Suite (Chrome, Play Store, YouTube, Maps, Gmail), and top social / developer tools (WhatsApp, Telegram, Termux, GitHub, Antigravity IDE).
+- **55+ Hand-Crafted Themed Icons**: Precision squircle icons covering Tecno stock apps (Smart Caller, AI Gallery, File Manager, HiTheme, HiOS Launcher), Google Suite (Chrome, Play Store, YouTube, Maps, Gmail), and top social, knowledge, and developer tools (WhatsApp, Telegram, Termux, GitHub, Anytype, KDE Connect).
 - **Universal Launcher Masking**: Includes `icon_background.png`, `icon_border.png`, and `icon_mask.png` so unthemed 3rd-party apps match the dark squircle aesthetic automatically.
 - **Mobile-Optimized 1080×2400 Wallpapers**: 6 cropped high-resolution wallpapers tailored for tall 20:9 Transsion displays + original 4K desktop editions.
 - **Multi-Method Deployment**:
@@ -69,19 +69,19 @@ This method bypasses modern Android scoped storage restrictions without needing 
 
 ---
 
-### Method 2: Manual Installation via Phone File Manager
+### Method 2: On-Device Installation via Shizuku or File Managers
 
-If you prefer transferring the file via USB or downloading it directly to your phone:
+If you prefer installing directly on your phone without a PC:
 
-1. Copy `SpaceNeonMinimal.zth` to your phone's internal storage.
-2. Using **MT Manager** or **ZArchiver** (required to access `Android/data` on modern Android versions), copy `SpaceNeonMinimal.zth` to the matching directory for your HiOS version:
-   - **HiOS 15 and newer**:
-     `Internal Storage/Android/data/com.transsion.theme/files/DIY/`
-   - **HiOS 14.5 and older**:
-     `Internal Storage/Android/data/com.transsion.hilauncher/files/DIY/`
-     *(or `Internal Storage/HiTheme/DIY/`)*
+1. **With Shizuku (No PC, easily bypasses Scoped Storage on Android 11–15+)**:
+   - Start **Shizuku** via Wireless Debugging.
+   - Use a Shizuku-authorized file manager (e.g. FV File Explorer, MT Manager, Material Files) or Termux `rish`.
+   - Copy `SpaceNeonMinimal.zth` to `Android/data/com.transsion.theme/files/DIY/` (HiOS 15+) or `Android/data/com.transsion.hilauncher/files/DIY/` (HiOS 13/14).
+2. **Without Shizuku**: Using **MT Manager** or **ZArchiver** (with Document Tree access enabled), copy `SpaceNeonMinimal.zth` to the target `DIY` directory.
 3. Open the **Hi Theme** app.
 4. Navigate to **My Themes / DIY**, select **Space Neon Minimal**, and tap **Apply**.
+
+See [`INSTALL_HIOS.md`](INSTALL_HIOS.md) for full step-by-step instructions.
 
 ---
 

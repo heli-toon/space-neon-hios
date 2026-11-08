@@ -19,7 +19,7 @@ Transsion changed the location of the local DIY themes directory across Android 
 
 ## 2. Recommended Installation Methods
 
-### Method A: One-Click ADB Push (Fastest & No Scoped Storage Hassle)
+### Method A: One-Click ADB Push (PC via USB — Fastest)
 
 Modern versions of Android (Android 11+) restrict standard file manager apps from browsing `Android/data`. However, **ADB pushes directly into protected app data without restriction**.
 
@@ -34,7 +34,61 @@ Modern versions of Android (Android 11+) restrict standard file manager apps fro
 
 ---
 
-### Method B: Manual File Placement Using MT Manager or ZArchiver
+### Method B: On-Device Installation with Shizuku (No PC — Bypasses Scoped Storage)
+
+If you don't have a PC nearby, **Shizuku** allows your phone to run elevated ADB shell commands and grant file managers unrestricted read/write access to `Android/data/` directly on-device.
+
+#### Step 1: Set Up & Start Shizuku
+1. Install **[Shizuku](https://play.google.com/store/apps/details?id=moe.shizuku.privileged.api)** from Google Play or GitHub.
+2. Connect your phone to Wi-Fi.
+3. Go to **Settings → System → Developer Options** and enable **Wireless Debugging**.
+4. In Shizuku, tap **Pairing** (pair using the 6-digit code provided in Wireless Debugging split-screen or quick settings tile).
+5. Once paired, return to Shizuku and tap **Start**. Shizuku will show *"Shizuku is running (adb)"*.
+
+#### Step 2: Deploy the Theme File
+
+You can deploy the file using either a visual file manager or Termux:
+
+* **Option 1: Using a Shizuku-Compatible File Manager (Visual & Easy)**
+  1. Install a file manager with Shizuku support, such as **FV File Explorer (File Viewer)**, **MT Manager**, **ZArchiver**, or **Material Files**.
+  2. Open the file manager and grant it Shizuku authorization when prompted.
+  3. Copy `SpaceNeonMinimal.zth` from your `Download/` folder.
+  4. Navigate to:
+     - For HiOS 15+: `Android/data/com.transsion.theme/files/`
+     - For HiOS 13 / 14: `Android/data/com.transsion.hilauncher/files/`
+     - For Infinix XOS: `Android/data/com.transsion.xoslauncher/files/`
+  5. If the `DIY` folder doesn't exist, create it (must be uppercase `DIY`).
+  6. Paste `SpaceNeonMinimal.zth` into `DIY/`.
+
+* **Option 2: Using Termux + Rish (Command Line)**
+  1. In **Termux**, configure the Shizuku `rish` shell wrapper:
+     ```bash
+     curl -sL https://github.com/RikkaApps/Shizuku-API/raw/master/rish/rish -o $PREFIX/bin/rish
+     chmod +x $PREFIX/bin/rish
+     ```
+  2. Launch the Shizuku shell:
+     ```bash
+     rish
+     ```
+  3. Copy `SpaceNeonMinimal.zth` straight into the HiOS directories in one go:
+     ```bash
+     mkdir -p /sdcard/Android/data/com.transsion.theme/files/DIY
+     mkdir -p /sdcard/Android/data/com.transsion.hilauncher/files/DIY
+     mkdir -p /sdcard/Android/data/com.transsion.xoslauncher/files/DIY
+     cp /sdcard/Download/SpaceNeonMinimal.zth /sdcard/Android/data/com.transsion.theme/files/DIY/
+     cp /sdcard/Download/SpaceNeonMinimal.zth /sdcard/Android/data/com.transsion.hilauncher/files/DIY/
+     cp /sdcard/Download/SpaceNeonMinimal.zth /sdcard/Android/data/com.transsion.xoslauncher/files/DIY/
+     exit
+     ```
+
+#### Step 3: Apply the Theme
+1. Force-close the **Hi Theme** (or **XTheme**) app from your recent apps switcher.
+2. Open **Hi Theme → Me → DIY / My Themes**.
+3. Tap **Space Neon Minimal** and select **Apply**.
+
+---
+
+### Method C: Manual File Placement Using MT Manager or ZArchiver (Without Shizuku)
 
 If you do not have a computer available:
 
@@ -51,7 +105,7 @@ If you do not have a computer available:
 
 ---
 
-### Method C: Renaming to .zip for Inspection
+### Method D: Renaming to .zip for Inspection
 
 If you ever want to check or replace assets directly:
 1. Rename `SpaceNeonMinimal.zth` to `SpaceNeonMinimal.zip`.
