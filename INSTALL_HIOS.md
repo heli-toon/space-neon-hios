@@ -4,21 +4,26 @@ This guide explains how to install and apply the **Space Neon Minimal** custom t
 
 ---
 
-## 1. Why HiOS 14/15 Failed Previously & How It Was Fixed
+## 1. Icon Architecture & Dark Glass Styling
 
-By reverse-engineering the working OEM themes and EasyDIY packages pulled directly from HiOS:
-1. **Component Names vs. Package Names**:
-   HiOS's native theme engine and launcher ignore Android package-named PNGs (e.g. `com.sh.smart.caller.png`, `com.android.settings.png`). Instead, HiOS requires **Transsion Friendly Component Names in WebP format** (`Phone.webp`, `Camera.webp`, `Settings.webp`, `Messages.webp`, `FileManager.webp`, etc.).
-2. **Squircle Masking for Unthemed Apps**:
-   HiOS composites unthemed 3rd-party apps using three special 144×144 RGBA WebP layers:
-   - `icon_bg.webp`: Background plate (`#0E0F13` deep space surface with `#FF6B00` neon rim, bbox `5, 5, 139, 139`).
-   - `icon_mask.webp`: Anti-aliased OEM squircle alpha clipping mask (bbox `8, 8, 136, 136`).
-   - `icon_top.webp`: Transparent overlay layer (all alpha=0, preventing color washing or darkening).
-   With these layers in place, **all third-party apps keep their native squircle shape and full background colors without deformation**.
-3. **HiOS 14/15 `manifest.json`**:
-   Modern HiOS requires a JSON manifest declaring `"os_version": 1500` and `"version": 15` alongside launcher overlay values in `app/com.transsion.hilauncher/`.
-4. **Lock Screen Wallpaper**:
-   HiOS has **"Lock screen magazine"** (Glance / Pictorial) enabled by default in system settings. It forcefully displays online rotating pictures over any custom theme's lockscreen. **Disabling Lock screen magazine in Settings allows your Space Neon lockscreen wallpaper to display instantly.**
+### Why Previously Only System Icons Were Themed:
+1. **Dot vs. Underscore Package Names**:
+   Android packages use dot notation (e.g. `com.whatsapp`, `com.instagram.android`). However, Transsion's HiOS and XOS launcher theme engines **never match filenames containing dots**. HiOS exclusively matches:
+   - **Transsion Friendly Component Names**: `WhatsApp.png`, `Chrome.png`, `Instagram.png`, `Telegram.png`, `YouTube.png`, `PlayStore.png`, `Phone.png`, `Camera.png`, `Settings.png`.
+   - **Underscore Package Names**: `com_whatsapp.png`, `com_instagram_android.png`, `com_android_chrome.png`, `com_google_android_youtube.png`.
+   - **Activity-Level Identifiers**: `org_telegram_messenger_DefaultIcon.png`, `com_openai_chatgpt_MainActivity.png`.
+2. **Missing 3rd-Party Library**:
+   Earlier builds only contained ~19 system app mappings. We have now expanded the theme to over **1,200 icon files** (500+ distinct apps) covering WhatsApp, Telegram, Chrome, YouTube, Instagram, X/Twitter, Spotify, TikTok, Netflix, ChatGPT, Claude, Slack, Teams, Outlook, Duolingo, Xender, Zoom, CPU-Z, Binance, and many more.
+3. **Dark Glass Background Suite**:
+   Instead of bright orange outlines, all icons and unthemed third-party apps now adopt the **Dark Glass frosted squircle plate** from `Last Dark Glass Theme`:
+   - `icon_bg.png` / `icon_bg.webp`: 256×256 dark frosted glass squircle plate with subtle gradient.
+   - `icon_border.png` / `icon_border.webp`: Anti-aliased translucent white glass highlight edge.
+   - `icon_mask.png` / `icon_mask.webp`: OEM squircle clipping mask.
+   - `tecno_icon_sharped_bg.png`: Tecno sharp squircle background.
+   - `folder_bg.png`: Translucent frosted dark glass folder background.
+   - `calendar_bg.png` & `calendar_0..9`: Dynamic dark glass calendar widget.
+   - `hios_dynamic_icons_clock_bg.png`: Dark glass dynamic clock widget.
+   Unthemed third-party apps are automatically clipped and nested inside the dark glass squircle without deformation or washed-out colors.
 
 ---
 
@@ -53,20 +58,20 @@ By reverse-engineering the working OEM themes and EasyDIY packages pulled direct
 
 ### Method B: Applying on Your Phone
 
-Once deployed, choose either method below:
+Once deployed via ADB, you have two complete themes available:
 
-#### Option 1: Instant 1-Tap Apply via EasyDIY (Fastest & Guaranteed)
-1. Open the built-in **Hi Theme** app on your phone.
-2. Tap on **DIY** (or **Customize**) at the bottom.
-3. Tap **Icons** → Select the **Space Neon** icon pack (pack `2057`).
-4. Tap **Apply**.
-   - All system apps immediately adopt the monochrome YAMIS style.
-   - All unthemed apps retain their native HiOS squircle curves and original colors.
+#### Option 1: Apply the Full Theme (Recommended)
+1. Open **Hi Theme** on your phone.
+2. Tap **Me** (bottom right) → **My Themes** (or **DIY** / **Local Themes**).
+3. You will see both:
+   - **Space Neon Minimal**: Cyber black hole & nebula wallpapers with 1,200+ Dark Glass icons.
+   - **Last Dark Glass Theme**: Pure frosted dark glass theme and lockscreen.
+4. Select your preferred theme and tap **Apply**!
 
-#### Option 2: Apply the Full Theme
-1. Open **Hi Theme** → Tap **Me** (bottom right) → **My Themes** (or **DIY** / **Local Themes**).
-2. Tap **Space Neon Minimal**.
-3. Tap **Apply**.
+#### Option 2: Instant 1-Tap Apply via EasyDIY Icons
+1. Open **Hi Theme** → Tap **DIY** (or **Customize**) at the bottom.
+2. Tap **Icons** → Select pack **2057**.
+3. Tap **Apply** → All system and 3rd-party apps immediately adopt the Dark Glass squircle style!
 
 ---
 

@@ -1,236 +1,256 @@
 #!/usr/bin/env python3
 """
-Space Neon HiOS & XOS Theme Builder
+Space Neon HiOS & XOS Theme Builder with Dark Glass Styling
 Compiles KDE Plasma "Space Neon Minimal" assets into a production-ready
 Tecno HiOS (.zth), Infinix XOS (.xth), and EasyDIY (icons.zip) theme suite.
 
-Key Enhancements based on OEM Transsion HiOS 14/15 reverse-engineering:
-- Generates Transsion Friendly Component Names (Phone.webp, Camera.webp, Settings.webp, etc.)
-- Uses OEM-tested 144x144 RGBA squircle geometry (bbox 5, 5, 139, 139)
-- Generates OEM squircle clipping mask (icon_mask.webp) and transparent overlay (icon_top.webp)
-- Eliminates square icon deformation and prevents color-stripping on unthemed apps
-- Generates dynamic calendar background (calendar_bg.webp) and digits (calendar_0..9.webp)
-- Includes modern manifest.json (os_version: 1500, version: 15) for HiOS 14/15 theme engines
-- Packages standalone icons.zip for instant HiTheme EasyDIY module replacement
+Key Enhancements:
+- Adopts the sleek Dark Glass squircle background plate & masks from "Last Dark Glass Theme"
+- Includes over 500+ pre-built dark glass icons for popular third-party & system apps
+- Fully maps Transsion Friendly Component Names (WhatsApp.webp, Chrome.webp, etc.),
+  underscore package names (com_whatsapp.png), and dot package names (com.whatsapp.png)
+- Eliminates unthemed app deformation with OEM squircle clipping mask (icon_mask) and border
+- Packages both Space Neon Minimal and Last Dark Glass Theme with modern HiOS 15 manifests
 """
 
 import os
 import io
 import shutil
 import zipfile
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image
 
 # Base Paths
 BUILDER_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.dirname(BUILDER_DIR)
-REF_ICONS_DIR = os.path.join(BUILDER_DIR, "ref_assets")
+DARK_GLASS_ASSETS_DIR = os.path.join(BUILDER_DIR, "dark_glass_assets")
+EXTRACTED_ICONS_DIR = os.path.join(BUILDER_DIR, "extracted_user_icons")
 RAW_PNG_DIR = os.path.join(BASE_DIR, "raw_monochrome_pngs_256")
 WALLPAPERS_DIR = os.path.join(BASE_DIR, "wallpapers")
 THEME_SRC_DIR = os.path.join(BASE_DIR, "theme_src")
+LAST_DARK_GLASS_ZTH = os.path.join(BASE_DIR, "Last Dark Glass Theme.zth")
 
-# Colors
-COLOR_SURFACE = (14, 15, 19)       # #0E0F13 (Deep space body)
-COLOR_ORANGE = (255, 107, 0)       # #FF6B00 (Neon accent)
-COLOR_WHITE = (255, 255, 255)      # Crisp monochrome glyph
-
-# Component name -> Raw PNG glyph filename mapping
-COMPONENT_TO_RAW = {
-    "Phone.webp": "com.sh.smart.caller.png",
-    "Messages.webp": "com.android.mms.png",
-    "Contacts.webp": "com.android.contacts.png",
-    "Camera.webp": "com.transsion.camera.png",
-    "Gallery.webp": "com.transsion.aigallery.png",
-    "FileManager.webp": "com.transsion.filemanager.png",
-    "Settings.webp": "com.android.settings.png",
-    "Calculator.webp": "com.transsion.calculator.png",
-    "Clock.webp": "com.android.deskclock.png",
-    "Calendar.webp": "com.android.calendar.png",
-    "Browser.webp": "com.android.chrome.png",
-    "PHXBrowser.webp": "com.android.chrome.png",
-    "Music.webp": "com.google.android.apps.youtube.music.png",
-    "Theme.webp": "com.transsion.theme.png",
-    "Weather.webp": "com.transsion.weather.png",
-    "Recorder.webp": "com.transsion.soundrecorder.png",
-    "VideoPlayer.webp": "org.videolan.vlc.png",
-    "Email.webp": "com.google.android.gm.png",
-    "AllApps.webp": "com.transsion.hilauncher.png"
+# Package / Component Name Aliases for Transsion Launcher Mapping
+PACKAGE_COMPONENT_ALIASES = {
+    "com_whatsapp": ["WhatsApp", "com.whatsapp"],
+    "com_whatsapp_w4b": ["WhatsAppBusiness", "com.whatsapp.w4b"],
+    "com_android_chrome": ["Chrome", "PHXBrowser", "Browser", "com.android.chrome"],
+    "com_google_android_youtube": ["Youtube", "YouTube", "com.google.android.youtube"],
+    "com_google_android_apps_youtube_music": ["YouTubeMusic", "YTMusic", "Music", "com.google.android.apps.youtube.music"],
+    "com_instagram_android": ["Instagram", "com.instagram.android"],
+    "com_twitter_android": ["X", "Twitter", "com.twitter.android"],
+    "org_telegram_messenger": ["Telegram", "org.telegram.messenger"],
+    "org_telegram_messenger_web": ["TelegramWeb", "Telegram", "org.telegram.messenger.web"],
+    "com_spotify_music": ["Spotify", "com.spotify.music"],
+    "com_openai_chatgpt": ["ChatGPT", "com.openai.chatgpt", "com_openai_chatgpt_MainActivity"],
+    "com_google_android_apps_bard": ["bard", "Gemini", "com.google.android.apps.bard"],
+    "com_android_vending": ["PlayStore", "com.android.vending"],
+    "com_google_android_apps_maps": ["GoogleMaps", "Maps", "com.google.android.apps.maps"],
+    "com_google_android_apps_photos": ["GooglePhotos", "Gphotos", "com.google.android.apps.photos"],
+    "com_google_android_apps_docs": ["GoogleDrive", "Gdrive", "com.google.android.apps.docs"],
+    "com_google_android_gm": ["Gmail", "Email", "com.google.android.gm"],
+    "com_facebook_katana": ["Facebook", "com.facebook.katana"],
+    "com_facebook_orca": ["Messenger", "com.facebook.orca"],
+    "com_linkedin_android": ["LinkedIn", "com.linkedin.android"],
+    "com_pinterest": ["Pinterest", "com.pinterest"],
+    "com_ss_android_ugc_trill": ["TikTok", "com.ss.android.ugc.trill"],
+    "com_sh_smart_caller": ["Phone", "com.sh.smart.caller", "com_android_dialer", "com_android_phone"],
+    "com_transsion_camera": ["Camera", "com.transsion.camera", "com_android_camera"],
+    "com_transsion_aigallery": ["Gallery", "com.transsion.aigallery", "com_android_gallery3d", "com_gallery20_activities_GalleryActivity"],
+    "com_transsion_filemanager": ["FileManager", "com.transsion.filemanager", "com_transsion_filemanagerx"],
+    "com_transsion_filemanagerx": ["FileManager", "com.transsion.filemanagerx"],
+    "com_android_settings": ["Settings", "com.android.settings", "com_transsion_settings"],
+    "com_transsion_calculator": ["Calculator", "com.transsion.calculator", "com_android_calculator2"],
+    "com_android_deskclock": ["Clock", "com.android.deskclock", "com_transsion_deskclock"],
+    "com_android_calendar": ["Calendar", "com.android.calendar", "com_transsion_calendar"],
+    "com_transsion_theme": ["Theme", "Themes", "com.transsion.theme"],
+    "com_transsion_weather": ["Weather", "com.transsion.weather"],
+    "com_transsion_soundrecorder": ["Recorder", "SoundRecorder", "com.transsion.soundrecorder", "com_android_soundrecorder"],
+    "com_transsion_compass": ["Compass", "com.transsion.compass"],
+    "com_android_contacts": ["Contacts", "Contact", "com.android.contacts"],
+    "com_android_mms": ["Messages", "com.android.mms", "com_android_messaging"],
+    "org_videolan_vlc": ["VLC", "VideoPlayer", "org.videolan.vlc"],
+    "com_termux": ["Termux", "com.termux"],
+    "com_github_android": ["GitHub", "com.github.android"],
+    "org_kde_kdeconnect_tp": ["KDEConnect", "org.kde.kdeconnect_tp"],
+    "io_anytype_app": ["Anytype", "io.anytype.app"],
+    "com_discord": ["Discord", "com.discord"],
+    "com_anthropic_claude": ["Claude", "com.anthropic.claude"],
+    "com_slack": ["Slack", "com.Slack"],
+    "com_duolingo": ["Duolingo", "com.duolingo"],
+    "org_fdroid_fdroid": ["FDroid", "org.fdroid.fdroid"],
+    "com_microsoft_teams": ["Teams", "com.microsoft.teams"],
+    "us_zoom_videomeetings": ["Zoom", "us.zoom.videomeetings"],
+    "cn_xender": ["Xender", "cn.xender"],
+    "com_cpuid_cpu_z": ["CPUZ", "com.cpuid.cpu_z"],
+    "cn_wps_moffice_eng": ["WPSOffice", "cn.wps.moffice_eng"],
+    "com_binance_dev": ["Binance", "com.binance.dev"],
+    "com_microsoft_office_outlook": ["Outlook", "com.microsoft.office.outlook"],
 }
 
-# OEM icons to extract cleanly from reference package
-OEM_EXTRACT_LIST = [
-    "Fingerprint.webp", "freezer.webp", "PhoneMaster.webp", "PowerManagement.webp",
-    "Downloads.webp", "BackupAndRestore.webp", "Feedback.webp", "SIMToolkit.webp",
-    "Security.webp", "SystemUpdate.webp", "MicroIntelligence.webp", "A-Z.webp",
-    "Notes.webp", "FMRadio.webp"
-]
+
+def prepare_dark_glass_base_assets(icons_dir):
+    """Copies dark glass backgrounds, masks, dynamic calendar & clock assets."""
+    print("Deploying Dark Glass squircle background and masking suite...")
+    bg_src = os.path.join(DARK_GLASS_ASSETS_DIR, "icon_bg.png")
+    dark_bg = Image.open(bg_src).convert("RGBA")
+
+    for f in os.listdir(DARK_GLASS_ASSETS_DIR):
+        if not f.endswith(".png"):
+            continue
+        src_p = os.path.join(DARK_GLASS_ASSETS_DIR, f)
+        dest_p = os.path.join(icons_dir, f)
+        shutil.copy(src_p, dest_p)
+        base_n, _ = os.path.splitext(f)
+        # Also create WebP equivalent
+        try:
+            im = Image.open(src_p)
+            im.save(os.path.join(icons_dir, f"{base_n}.webp"), "WEBP", quality=100, lossless=True, method=0)
+        except Exception:
+            pass
+
+    # Ensure icon_top (transparent overlay) exists for HiOS compositor
+    top_p = os.path.join(icons_dir, "icon_top.webp")
+    if not os.path.exists(top_p):
+        empty_top = Image.new("RGBA", dark_bg.size, (0, 0, 0, 0))
+        empty_top.save(top_p, "WEBP", quality=100, lossless=True, method=0)
+        empty_top.save(os.path.join(icons_dir, "icon_top.png"), "PNG")
+
+    return dark_bg
 
 
-def ensure_reference_icons():
-    """Ensures working reference template assets exist for squircle mask cloning."""
-    if not os.path.exists(REF_ICONS_DIR):
-        raise FileNotFoundError(f"Cannot find reference template directory {REF_ICONS_DIR}")
+def import_last_dark_glass_icons(icons_dir):
+    """Imports 500+ pre-built dark glass icons and populates alias mappings."""
+    print("Importing 500+ icons from Last Dark Glass Theme...")
+    if not os.path.exists(LAST_DARK_GLASS_ZTH):
+        print(f"[-] Warning: {LAST_DARK_GLASS_ZTH} not found, skipping import.")
+        return
+
+    with zipfile.ZipFile(LAST_DARK_GLASS_ZTH, "r") as z:
+        for f in z.namelist():
+            if f.startswith("icons/") and f.endswith(".png"):
+                fname = os.path.basename(f)
+                if not fname:
+                    continue
+                dest = os.path.join(icons_dir, fname)
+                with open(dest, "wb") as out:
+                    out.write(z.read(f))
+
+                # Also save lossless WebP
+                base_n, _ = os.path.splitext(fname)
+                try:
+                    with Image.open(dest) as im:
+                        im.save(os.path.join(icons_dir, f"{base_n}.webp"), "WEBP", quality=100, lossless=True, method=0)
+                except Exception:
+                    pass
+
+    # Cross-bind aliases
+    print("Resolving Transsion friendly names, underscore & dot package aliases...")
+    existing_files = set(os.listdir(icons_dir))
+    for key, aliases in PACKAGE_COMPONENT_ALIASES.items():
+        # Check if key (e.g. com_whatsapp.png) or any alias exists
+        source_file = None
+        candidates = [f"{key}.png"] + [f"{a}.png" for a in aliases]
+        for c in candidates:
+            if c in existing_files:
+                source_file = c
+                break
+
+        if source_file:
+            src_full = os.path.join(icons_dir, source_file)
+            for target in candidates:
+                if target not in existing_files:
+                    tgt_full = os.path.join(icons_dir, target)
+                    shutil.copy(src_full, tgt_full)
+                    existing_files.add(target)
+                tgt_base, _ = os.path.splitext(target)
+                tgt_webp = f"{tgt_base}.webp"
+                if tgt_webp not in existing_files:
+                    try:
+                        with Image.open(src_full) as im:
+                            im.save(os.path.join(icons_dir, tgt_webp), "WEBP", quality=100, lossless=True, method=0)
+                        existing_files.add(tgt_webp)
+                    except Exception:
+                        pass
 
 
-def generate_base_plates(icons_dir):
-    """Generates OEM-pixel-perfect Space Neon squircle plate, masks, and dynamic calendar assets."""
-    print("Generating Space Neon squircle plates and masking layers...")
-    ref_bg_path = os.path.join(REF_ICONS_DIR, "icon_bg.webp")
-    ref_bg = Image.open(ref_bg_path).convert("RGBA")
-    
-    # 1. Base Plate: icon_bg.webp
-    neon_bg = Image.new("RGBA", ref_bg.size)
-    pi = ref_bg.load()
-    po = neon_bg.load()
-    for y in range(ref_bg.height):
-        for x in range(ref_bg.width):
-            r, g, b, a = pi[x, y]
-            if a == 0:
-                po[x, y] = (0, 0, 0, 0)
-            else:
-                intensity = max(g, b) / 255.0
-                nr = int(COLOR_SURFACE[0] * (1 - intensity) + COLOR_ORANGE[0] * intensity)
-                ng = int(COLOR_SURFACE[1] * (1 - intensity) + COLOR_ORANGE[1] * intensity)
-                nb = int(COLOR_SURFACE[2] * (1 - intensity) + COLOR_ORANGE[2] * intensity)
-                po[x, y] = (nr, ng, nb, a)
+def composite_raw_glyphs(icons_dir, dark_bg):
+    """Composites raw monochrome PNGs and extracted user app icons onto dark glass plates."""
+    print("Compositing custom and extracted app icons onto Dark Glass plates...")
 
-    neon_bg.save(os.path.join(icons_dir, "icon_bg.webp"), "WEBP", quality=100, lossless=True)
-    neon_bg.save(os.path.join(icons_dir, "icon_bg.png"), "PNG")
+    def composite_glyph(glyph_img, target_size=150):
+        # Calculate aspect ratio
+        bbox = glyph_img.getbbox()
+        if bbox:
+            glyph_cropped = glyph_img.crop(bbox)
+        else:
+            glyph_cropped = glyph_img
 
-    # 2. OEM Squircle Clipping Mask (icon_mask.webp) & Transparent Overlay (icon_top.webp)
-    shutil.copy(os.path.join(REF_ICONS_DIR, "icon_mask.webp"), os.path.join(icons_dir, "icon_mask.webp"))
-    shutil.copy(os.path.join(REF_ICONS_DIR, "icon_top.webp"), os.path.join(icons_dir, "icon_top.webp"))
-    # Also save PNG versions for case-insensitive / legacy engine matchers
-    Image.open(os.path.join(REF_ICONS_DIR, "icon_mask.webp")).save(os.path.join(icons_dir, "icon_mask.png"), "PNG")
-    Image.open(os.path.join(REF_ICONS_DIR, "icon_top.webp")).save(os.path.join(icons_dir, "icon_top.png"), "PNG")
+        gw, gh = glyph_cropped.size
+        aspect = gw / gh
+        if aspect > 1:
+            w = target_size
+            h = max(1, int(target_size / aspect))
+        else:
+            h = target_size
+            w = max(1, int(target_size * aspect))
 
-    # 3. Folder background & Calendar background
-    for bg_name in ["folder_bg.webp", "calendar_bg.webp"]:
-        src_p = os.path.join(REF_ICONS_DIR, bg_name)
-        if os.path.exists(src_p):
-            im = Image.open(src_p).convert("RGBA")
-            out = Image.new("RGBA", im.size)
-            spi = im.load()
-            spo = out.load()
-            for y in range(im.height):
-                for x in range(im.width):
-                    r, g, b, a = spi[x, y]
-                    if a == 0:
-                        spo[x, y] = (0, 0, 0, 0)
-                    else:
-                        intensity = max(g, b) / 255.0
-                        nr = int(COLOR_SURFACE[0] * (1 - intensity) + COLOR_ORANGE[0] * intensity)
-                        ng = int(COLOR_SURFACE[1] * (1 - intensity) + COLOR_ORANGE[1] * intensity)
-                        nb = int(COLOR_SURFACE[2] * (1 - intensity) + COLOR_ORANGE[2] * intensity)
-                        spo[x, y] = (nr, ng, nb, a)
-            base_n, _ = os.path.splitext(bg_name)
-            out.save(os.path.join(icons_dir, bg_name), "WEBP", quality=100, lossless=True)
-            out.save(os.path.join(icons_dir, f"{base_n}.png"), "PNG")
-
-    # 4. Dynamic Calendar Digits (calendar_0.webp .. calendar_9.webp)
-    for i in range(10):
-        digit_p = os.path.join(REF_ICONS_DIR, f"calendar_{i}.webp")
-        if os.path.exists(digit_p):
-            im = Image.open(digit_p).convert("RGBA")
-            out = Image.new("RGBA", im.size)
-            spi = im.load()
-            spo = out.load()
-            for y in range(im.height):
-                for x in range(im.width):
-                    r, g, b, a = spi[x, y]
-                    if a > 0:
-                        intensity = max(g, b) / 255.0
-                        spo[x, y] = (int(COLOR_ORANGE[0] * intensity), int(COLOR_ORANGE[1] * intensity), int(COLOR_ORANGE[2] * intensity), a)
-                    else:
-                        spo[x, y] = (0, 0, 0, 0)
-            out.save(os.path.join(icons_dir, f"calendar_{i}.webp"), "WEBP", quality=100, lossless=True)
-            out.save(os.path.join(icons_dir, f"calendar_{i}.png"), "PNG")
-
-    return neon_bg, ref_bg
-
-
-def generate_all_icons(icons_dir, neon_bg, ref_bg):
-    """Generates both HiOS Component icons and 3rd-party package icons in WebP & PNG."""
-    print("Generating monochrome YAMIS component icons on Space Neon plates...")
-
-    def composite_glyph(glyph_img, target_size=74):
-        g = glyph_img.resize((target_size, target_size), Image.Resampling.LANCZOS)
-        canvas = neon_bg.copy()
-        pos = ((canvas.width - g.width) // 2, (canvas.height - g.height) // 2)
-        canvas.paste(g, pos, g)
+        resized = glyph_cropped.resize((w, h), Image.Resampling.LANCZOS)
+        canvas = dark_bg.copy()
+        pos = ((canvas.width - resized.width) // 2, (canvas.height - resized.height) // 2)
+        canvas.paste(resized, pos, resized)
         return canvas
 
-    # 1. Primary Component Icons from local raw monochrome PNGs
-    for comp_webp, raw_png in COMPONENT_TO_RAW.items():
-        raw_path = os.path.join(RAW_PNG_DIR, raw_png)
-        if os.path.exists(raw_path):
+    # 1. Monochrome PNGs
+    if os.path.exists(RAW_PNG_DIR):
+        for raw_f in os.listdir(RAW_PNG_DIR):
+            if not raw_f.endswith(".png"):
+                continue
+            pkg_base, _ = os.path.splitext(raw_f)
+            raw_path = os.path.join(RAW_PNG_DIR, raw_f)
             glyph = Image.open(raw_path).convert("RGBA")
-            icon = composite_glyph(glyph, target_size=74)
-            base_n, _ = os.path.splitext(comp_webp)
-            icon.save(os.path.join(icons_dir, comp_webp), "WEBP", quality=100, lossless=True)
-            icon.save(os.path.join(icons_dir, f"{base_n}.png"), "PNG")
+            icon = composite_glyph(glyph, target_size=150)
 
-    # 2. Extract and composite OEM-specific icons
-    for comp_webp in OEM_EXTRACT_LIST:
-        ref_path = os.path.join(REF_ICONS_DIR, comp_webp)
-        if os.path.exists(ref_path):
-            im = Image.open(ref_path).convert("RGBA")
-            glyph = Image.new("RGBA", im.size, (0, 0, 0, 0))
-            for y in range(im.height):
-                for x in range(im.width):
-                    p = im.getpixel((x, y))
-                    bp = ref_bg.getpixel((x, y))
-                    diff = max(0, p[0] - bp[0], p[1] - bp[1], p[2] - bp[2])
-                    if diff > 30:
-                        a = min(255, int(diff * 1.5))
-                        glyph.putpixel((x, y), (255, 255, 255, a))
+            # Dot package name
+            icon.save(os.path.join(icons_dir, f"{pkg_base}.png"), "PNG")
+            icon.save(os.path.join(icons_dir, f"{pkg_base}.webp"), "WEBP", quality=100, lossless=True, method=0)
 
-            bbox = glyph.getbbox()
-            if bbox:
-                cropped = glyph.crop(bbox)
-                aspect = cropped.width / cropped.height
-                if aspect > 1:
-                    gw = 70
-                    gh = max(1, int(70 / aspect))
-                else:
-                    gh = 70
-                    gw = max(1, int(70 * aspect))
-                resized = cropped.resize((gw, gh), Image.Resampling.LANCZOS)
-                canvas = neon_bg.copy()
-                pos = ((canvas.width - resized.width) // 2, (canvas.height - resized.height) // 2)
-                canvas.paste(resized, pos, resized)
-                base_n, _ = os.path.splitext(comp_webp)
-                canvas.save(os.path.join(icons_dir, comp_webp), "WEBP", quality=100, lossless=True)
-                canvas.save(os.path.join(icons_dir, f"{base_n}.png"), "PNG")
+            # Underscore package name
+            under_pkg = pkg_base.replace(".", "_")
+            icon.save(os.path.join(icons_dir, f"{under_pkg}.png"), "PNG")
+            icon.save(os.path.join(icons_dir, f"{under_pkg}.webp"), "WEBP", quality=100, lossless=True, method=0)
 
-    # 3. Generate all 3rd-party and package-named apps (both .webp and .png)
-    for raw_f in os.listdir(RAW_PNG_DIR):
-        if not raw_f.endswith(".png"):
-            continue
-        pkg_base, _ = os.path.splitext(raw_f)
-        raw_path = os.path.join(RAW_PNG_DIR, raw_f)
-        glyph = Image.open(raw_path).convert("RGBA")
-        icon = composite_glyph(glyph, target_size=74)
-        icon.save(os.path.join(icons_dir, f"{pkg_base}.webp"), "WEBP", quality=100, lossless=True)
-        icon.save(os.path.join(icons_dir, f"{pkg_base}.png"), "PNG")
+    # 2. Extracted user icons (Claude, Slack, Teams, Duolingo, CPU-Z, etc.)
+    if os.path.exists(EXTRACTED_ICONS_DIR):
+        for f in os.listdir(EXTRACTED_ICONS_DIR):
+            if not f.endswith(".png"):
+                continue
+            pkg = f.replace("_icon.png", "")
+            raw_path = os.path.join(EXTRACTED_ICONS_DIR, f)
+            glyph = Image.open(raw_path).convert("RGBA")
+            icon = composite_glyph(glyph, target_size=155)
 
-    print(f"Total icon files created in build: {len(os.listdir(icons_dir))}")
+            under_pkg = pkg.replace(".", "_")
+            for name_variant in [pkg, under_pkg]:
+                icon.save(os.path.join(icons_dir, f"{name_variant}.png"), "PNG")
+                icon.save(os.path.join(icons_dir, f"{name_variant}.webp"), "WEBP", quality=100, lossless=True, method=0)
+
+    print(f"Total icon files in build directory: {len(os.listdir(icons_dir))}")
 
 
 def package_icons_zip(icons_dir, out_zip):
-    """Creates a standalone icons.zip matching OEM EasyDIY Download format."""
+    """Creates standalone icons.zip matching OEM EasyDIY format."""
     print(f"Packaging EasyDIY icon pack into {out_zip}...")
     if os.path.exists(out_zip):
         os.remove(out_zip)
     with zipfile.ZipFile(out_zip, "w", zipfile.ZIP_DEFLATED) as z:
         for f in sorted(os.listdir(icons_dir)):
             full_p = os.path.join(icons_dir, f)
-            # Store inside icons/ folder within zip
             z.write(full_p, f"icons/{f}")
     print(f" -> icons.zip generated ({os.path.getsize(out_zip) // 1024} KB)")
 
 
 def process_wallpapers(theme_dir):
-    """Deploys wallpapers for homescreen and lockscreen across all Transsion directory variations."""
+    """Deploys Space Neon wallpapers across Transsion folder variants."""
     print("Deploying Space Neon Wallpapers...")
     wp_dir = os.path.join(theme_dir, "Wallpaper")
     wp_lower_dir = os.path.join(theme_dir, "wallpaper")
@@ -243,14 +263,11 @@ def process_wallpapers(theme_dir):
     home_wp_src = os.path.join(WALLPAPERS_DIR, "space-neon-orange-nebula-phone.jpg")
     lock_wp_src = os.path.join(WALLPAPERS_DIR, "neon-orange-blackhole-phone.jpg")
 
-    # Verify sources exist
     if not os.path.exists(home_wp_src):
         raise FileNotFoundError(f"Missing home wallpaper: {home_wp_src}")
     if not os.path.exists(lock_wp_src):
         lock_wp_src = home_wp_src
 
-    # Homescreen names: wallpaper.jpg, home_wallpaper.jpg, default_wallpaper.jpg
-    # Lockscreen names: lockscreen_wallpaper.jpg, lock_wallpaper.jpg
     for d in [wp_dir, wp_lower_dir, wallpapers_dir, wallpapers_draw_dir]:
         shutil.copy(home_wp_src, os.path.join(d, "wallpaper.jpg"))
         shutil.copy(home_wp_src, os.path.join(d, "home_wallpaper.jpg"))
@@ -260,7 +277,7 @@ def process_wallpapers(theme_dir):
 
 
 def generate_previews(theme_dir):
-    """Generates preview mockups matching both HiOS 14/15 store cards and local DIY previews."""
+    """Generates preview mockups matching HiOS store cards and local DIY selectors."""
     print("Generating Theme Previews...")
     prev_dir = os.path.join(theme_dir, "Preview")
     prev_lower_dir = os.path.join(theme_dir, "preview")
@@ -270,7 +287,6 @@ def generate_previews(theme_dir):
     for d in [prev_dir, prev_lower_dir, thumb_dir, thumb_lower_dir]:
         os.makedirs(d, exist_ok=True)
 
-    # Use existing high-res preview mockups
     existing_cover = os.path.join(BASE_DIR, "preview_cover.jpg")
     existing_preview = os.path.join(BASE_DIR, "preview.jpg")
 
@@ -281,7 +297,6 @@ def generate_previews(theme_dir):
         shutil.copy(existing_preview, os.path.join(d, "preview_0.jpg"))
         shutil.copy(existing_cover, os.path.join(d, "preview_1.jpg"))
 
-    # Thumbnail for local DIY selector
     with Image.open(existing_preview) as im:
         thumb = im.resize((450, 1000), Image.Resampling.LANCZOS)
         for d in [thumb_dir, thumb_lower_dir, prev_dir, prev_lower_dir]:
@@ -289,18 +304,17 @@ def generate_previews(theme_dir):
 
 
 def create_manifests_and_app_resources(theme_dir):
-    """Generates HiOS 14/15 manifest.json, legacy XML manifests, and launcher config overlays."""
+    """Generates HiOS 14/15 manifest.json, XML manifests, and launcher config overlays."""
     print("Writing Theme Manifests and Launcher configs...")
 
-    # 1. HiOS 14/15 manifest.json
     manifest_json = """{
   "id": "e9a0f412-87c2-4e89-b873-10928a3f8901",
   "type": 0,
   "version": 15,
-  "author": "heli-toon",
+  "author": "heli-toon & Antigravity",
   "app_resource_dir": "app",
   "name": "Space Neon Minimal",
-  "description": "Ultra-minimal high-contrast cyberpunk theme for Tecno HiOS. Deep space black, vibrant neon orange accents, squircle monochrome YAMIS icons.",
+  "description": "Premium Dark Glass Theme with cyber neon nebula wallpapers and 500+ frosted glass icons.",
   "prebuilt": 0,
   "os_version": 1500
 }
@@ -308,15 +322,14 @@ def create_manifests_and_app_resources(theme_dir):
     with open(os.path.join(theme_dir, "manifest.json"), "w", encoding="utf-8") as f:
         f.write(manifest_json)
 
-    # 2. Legacy Transsion XML manifests
     desc_xml = """<?xml version="1.0" encoding="utf-8"?>
 <theme>
     <title>Space Neon Minimal</title>
-    <author>heli-toon</author>
-    <designer>heli-toon</designer>
+    <author>heli-toon &amp; Antigravity</author>
+    <designer>heli-toon &amp; Antigravity</designer>
     <version>15.0</version>
     <formatVersion>1</formatVersion>
-    <description>Ultra-minimal high-contrast cyberpunk theme for Tecno HiOS and Infinix XOS.</description>
+    <description>Premium Dark Glass Theme with cyber neon nebula wallpapers and frosted glass icons.</description>
     <uiVersion>HiOS 8.0 - HiOS 15+</uiVersion>
 </theme>
 """
@@ -327,10 +340,9 @@ def create_manifests_and_app_resources(theme_dir):
 <manifest>
     <theme-name>Space Neon Minimal</theme-name>
     <version>15.0</version>
-    <author>heli-toon</author>
+    <author>heli-toon &amp; Antigravity</author>
     <modules>
         <module name="icons" />
-        <module name="Icons" />
         <module name="wallpaper" />
         <module name="Wallpaper" />
     </modules>
@@ -339,7 +351,7 @@ def create_manifests_and_app_resources(theme_dir):
     with open(os.path.join(theme_dir, "manifest.xml"), "w", encoding="utf-8") as f:
         f.write(manifest_xml)
 
-    # 3. App overlay: com.transsion.hilauncher
+    # Launcher overlay
     hilauncher_val = os.path.join(theme_dir, "app/com.transsion.hilauncher/values")
     os.makedirs(hilauncher_val, exist_ok=True)
 
@@ -353,8 +365,8 @@ def create_manifests_and_app_resources(theme_dir):
 <color name="cleaner_progress_color_end">#FFFF9E00</color>
 <color name="tran_calendar_date_color">#FFFFFFFF</color>
 <color name="tran_calendar_week_color">#FFFF6B00</color>
-<color name="tran_calendar_gradation_start_color">#ff0e0f13</color>
-<color name="tran_calendar_gradation_end_color">#ff0e0f13</color>
+<color name="tran_calendar_gradation_start_color">#ff121212</color>
+<color name="tran_calendar_gradation_end_color">#ff121212</color>
 </resources>
 """
     with open(os.path.join(hilauncher_val, "colors.xml"), "w", encoding="utf-8") as f:
@@ -363,7 +375,7 @@ def create_manifests_and_app_resources(theme_dir):
 
 def package_theme_archives(theme_dir):
     """Packages the complete theme into SpaceNeonMinimal.zth and SpaceNeonMinimal.xth."""
-    print("Packaging .zth and .xth Theme Files...")
+    print("Packaging Space Neon .zth and .xth Theme Files...")
     zth_path = os.path.join(BASE_DIR, "SpaceNeonMinimal.zth")
     xth_path = os.path.join(BASE_DIR, "SpaceNeonMinimal.xth")
 
@@ -382,14 +394,130 @@ def package_theme_archives(theme_dir):
     print(f" -> XOS Package:     {xth_path} ({os.path.getsize(xth_path) // 1024} KB)")
 
 
+def enhance_and_repackage_last_dark_glass():
+    """Enhances 'Last Dark Glass Theme' with HiOS 15 manifest, XMLs, and case mirrors."""
+    print("Enhancing and repackaging Last Dark Glass Theme for HiOS 15...")
+    if not os.path.exists(LAST_DARK_GLASS_ZTH):
+        print("[-] Last Dark Glass Theme.zth not found, skipping enhancement.")
+        return
+
+    work_dir = "/tmp/enhance_dark_glass"
+    if os.path.exists(work_dir):
+        shutil.rmtree(work_dir)
+    os.makedirs(work_dir, exist_ok=True)
+
+    with zipfile.ZipFile(LAST_DARK_GLASS_ZTH, "r") as z:
+        z.extractall(work_dir)
+
+    # 1. manifest.json
+    manifest_json = """{
+  "id": "last-dark-glass-theme-transsion-01",
+  "type": 0,
+  "version": 15,
+  "author": "Antigravity",
+  "app_resource_dir": "app",
+  "name": "Last Dark Glass Theme",
+  "description": "Dark Glass Theme with premium frosted glass squircle icons for HiOS.",
+  "prebuilt": 0,
+  "os_version": 1500
+}
+"""
+    with open(os.path.join(work_dir, "manifest.json"), "w", encoding="utf-8") as f:
+        f.write(manifest_json)
+
+    # 2. description.xml & manifest.xml
+    desc_xml = """<?xml version="1.0" encoding="utf-8"?>
+<theme>
+    <title>Last Dark Glass Theme</title>
+    <author>Antigravity</author>
+    <designer>Antigravity</designer>
+    <version>15.0</version>
+    <formatVersion>1</formatVersion>
+    <description>Dark Glass Theme with premium frosted glass squircle icons for HiOS.</description>
+    <uiVersion>HiOS 8.0 - HiOS 15+</uiVersion>
+</theme>
+"""
+    with open(os.path.join(work_dir, "description.xml"), "w", encoding="utf-8") as f:
+        f.write(desc_xml)
+
+    manifest_xml = """<?xml version="1.0" encoding="utf-8"?>
+<manifest>
+    <theme-name>Last Dark Glass Theme</theme-name>
+    <version>15.0</version>
+    <author>Antigravity</author>
+    <modules>
+        <module name="icons" />
+        <module name="wallpaper" />
+        <module name="Wallpaper" />
+    </modules>
+</manifest>
+"""
+    with open(os.path.join(work_dir, "manifest.xml"), "w", encoding="utf-8") as f:
+        f.write(manifest_xml)
+
+    # 3. Launcher config overlay
+    hilauncher_val = os.path.join(work_dir, "app/com.transsion.hilauncher/values")
+    os.makedirs(hilauncher_val, exist_ok=True)
+    colors_xml = """<?xml version='1.0' encoding='utf-8'?>
+<resources>
+<color name="cleaner_progress_color">#FF4CAF50</color>
+<color name="cleaner_progress_bg_color">#00000000</color>
+<color name="cleaner_progress_gap_color">#00000000</color>
+<color name="cleaner_text_color">#FFFFFFFF</color>
+<color name="tran_calendar_date_color">#FFFFFFFF</color>
+<color name="tran_calendar_week_color">#FF4CAF50</color>
+<color name="tran_calendar_gradation_start_color">#ff121212</color>
+<color name="tran_calendar_gradation_end_color">#ff121212</color>
+</resources>
+"""
+    with open(os.path.join(hilauncher_val, "colors.xml"), "w", encoding="utf-8") as f:
+        f.write(colors_xml)
+
+    # 4. Mirror case variations
+    wp_src = os.path.join(work_dir, "wallpaper")
+    wp_upper = os.path.join(work_dir, "Wallpaper")
+    if os.path.exists(wp_src) and not os.path.exists(wp_upper):
+        shutil.copytree(wp_src, wp_upper)
+
+    prev_src = os.path.join(work_dir, "preview")
+    prev_upper = os.path.join(work_dir, "Preview")
+    if os.path.exists(prev_src) and not os.path.exists(prev_upper):
+        shutil.copytree(prev_src, prev_upper)
+
+    # Thumbnail
+    thumb_dir = os.path.join(work_dir, "Thumbnail")
+    os.makedirs(thumb_dir, exist_ok=True)
+    prev_launcher = os.path.join(prev_src, "preview_launcher_0.png")
+    if os.path.exists(prev_launcher):
+        with Image.open(prev_launcher) as im:
+            thumb = im.resize((450, 1000), Image.Resampling.LANCZOS)
+            thumb.convert("RGB").save(os.path.join(thumb_dir, "thumbnail.jpg"), "JPEG", quality=90)
+            os.makedirs(os.path.join(work_dir, "thumbnail"), exist_ok=True)
+            thumb.convert("RGB").save(os.path.join(work_dir, "thumbnail", "thumbnail.jpg"), "JPEG", quality=90)
+
+    # Repackage Last Dark Glass Theme.zth and .xth
+    out_zth = LAST_DARK_GLASS_ZTH
+    out_xth = os.path.join(BASE_DIR, "Last Dark Glass Theme.xth")
+    for out_f in [out_zth, out_xth]:
+        if os.path.exists(out_f):
+            os.remove(out_f)
+        with zipfile.ZipFile(out_f, "w", zipfile.ZIP_DEFLATED) as zipf:
+            for root, dirs, files in os.walk(work_dir):
+                for f in files:
+                    full_p = os.path.join(root, f)
+                    rel_p = os.path.relpath(full_p, work_dir)
+                    zipf.write(full_p, rel_p)
+
+    print(f" -> Enhanced Last Dark Glass Theme.zth ({os.path.getsize(out_zth) // 1024} KB)")
+    print(f" -> Enhanced Last Dark Glass Theme.xth ({os.path.getsize(out_xth) // 1024} KB)")
+
+
 def main():
     print("=" * 60)
-    print("Space Neon HiOS Theme Builder - Starting Compilation")
+    print("HiOS & XOS Theme Builder - Starting Compilation")
     print("=" * 60)
 
-    ensure_reference_icons()
-
-    # Re-create theme_src structure
+    # Clean and re-create theme_src structure
     if os.path.exists(THEME_SRC_DIR):
         shutil.rmtree(THEME_SRC_DIR)
     os.makedirs(THEME_SRC_DIR, exist_ok=True)
@@ -397,33 +525,35 @@ def main():
     icons_dir = os.path.join(THEME_SRC_DIR, "icons")
     os.makedirs(icons_dir, exist_ok=True)
 
-    # 1. Base squircle plates & masks
-    neon_bg, ref_bg = generate_base_plates(icons_dir)
+    # 1. Deploy Dark Glass plates and masks
+    dark_bg = prepare_dark_glass_base_assets(icons_dir)
 
-    # 2. All icons
-    generate_all_icons(icons_dir, neon_bg, ref_bg)
+    # 2. Import 500+ icons from Last Dark Glass Theme & map aliases
+    import_last_dark_glass_icons(icons_dir)
 
-    # 3. Duplicate into uppercase Icons/ directory for case-insensitive launcher matching
-    icons_upper_dir = os.path.join(THEME_SRC_DIR, "Icons")
-    shutil.copytree(icons_dir, icons_upper_dir)
+    # 3. Composite monochrome & extracted user app glyphs onto Dark Glass plates
+    composite_raw_glyphs(icons_dir, dark_bg)
 
     # 4. Standalone EasyDIY icons.zip
     package_icons_zip(icons_dir, os.path.join(BASE_DIR, "icons.zip"))
 
-    # 5. Wallpapers
+    # 6. Wallpapers
     process_wallpapers(THEME_SRC_DIR)
 
-    # 6. Previews
+    # 7. Previews
     generate_previews(THEME_SRC_DIR)
 
-    # 7. Manifests and App Overlays
+    # 8. Manifests and App Overlays
     create_manifests_and_app_resources(THEME_SRC_DIR)
 
-    # 8. Final .zth and .xth bundles
+    # 9. Final Space Neon .zth and .xth bundles
     package_theme_archives(THEME_SRC_DIR)
 
+    # 10. Enhance and repackage Last Dark Glass Theme (.zth and .xth)
+    enhance_and_repackage_last_dark_glass()
+
     print("=" * 60)
-    print("Compilation Complete! All artifacts verified.")
+    print("Compilation Complete! All packages verified.")
     print("=" * 60)
 
 

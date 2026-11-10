@@ -2,8 +2,10 @@
 __pycache__/
 *.pyc
 
-# Local temporary files
+# Local temporary and build artifacts
 *.tmp
 .DS_Store
 working_*
+theme_src/
+
 

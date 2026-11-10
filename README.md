@@ -10,11 +10,11 @@ Deep space blacks (`#0A0A0B`), grayscale hierarchy, and vibrant neon orange (`#F
 
 ## Highlights & Features
 
-- **Cyber Deep Space Aesthetic**: Pure `#0A0A0B` obsidian background designed for OLED / AMOLED energy efficiency and eye comfort.
-- **Vibrant Neon Orange Accents**: Highlight color (`#FF6B00`) applied to borders, indicators, and primary action glyphs.
-- **55+ Hand-Crafted Themed Icons**: Precision squircle icons covering Tecno stock apps (Smart Caller, AI Gallery, File Manager, HiTheme, HiOS Launcher), Google Suite (Chrome, Play Store, YouTube, Maps, Gmail), and top social, knowledge, and developer tools (WhatsApp, Telegram, Termux, GitHub, Anytype, KDE Connect).
-- **HiOS 14/15 Native Engine & EasyDIY Support**: Full support for Transsion Friendly Component Names (`Phone.webp`, `Camera.webp`, `Settings.webp`, etc.) and standalone `icons.zip` for instant 1-tap EasyDIY application.
-- **Preserves Native Launcher Squircles**: Features OEM-tested 144×144 RGBA squircle clipping mask (`icon_mask.webp`) and plate (`icon_bg.webp`) so unthemed 3rd-party apps retain their native HiOS squircle curvature and original backgrounds without distortion or sharp corners.
+- **Dark Glass Squircle Aesthetic**: Premium frosted dark glass background plate and subtle glass rim reflection inspired by *Last Dark Glass Theme*.
+- **Over 1,200+ Themed Icons**: Comprehensive coverage for all system apps and top third-party apps (WhatsApp, Telegram, Chrome, YouTube, Instagram, X/Twitter, Spotify, TikTok, Netflix, ChatGPT, Claude, Slack, Teams, Outlook, Duolingo, Xender, Zoom, CPU-Z, Binance, F-Droid, Termux, GitHub, and more).
+- **Dual Naming Architecture**: Full support for Transsion Friendly Component Names (`WhatsApp.png`), underscore package names (`com_whatsapp.png`), and dot package names (`com.whatsapp.png`) across both `.webp` and `.png` formats.
+- **Flawless Unthemed Squircle Masking**: Uses OEM-calibrated `icon_mask.png`, `icon_border.png`, `icon_bg.png`, and `tecno_icon_sharped_bg.png` so unthemed 3rd-party apps smoothly clip into the dark glass squircle without distortion or color washing.
+- **Includes 'Last Dark Glass Theme'**: Both *Space Neon Minimal* and *Last Dark Glass Theme* are compiled and deployed side-by-side to Hi Theme.
 - **Dynamic Calendar & Clock Support**: Dynamic calendar plate and neon orange digit overlays (`calendar_0.webp` – `calendar_9.webp`).
 - **Mobile-Optimized 1080×2400 Wallpapers**: High-resolution homescreen and lockscreen wallpapers tailored for tall 20:9 Transsion displays + original 4K desktop editions.
 - **Multi-Method Deployment**:

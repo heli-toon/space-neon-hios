@@ -23,12 +23,14 @@ fi
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ZTH_FILE="$SCRIPT_DIR/SpaceNeonMinimal.zth"
 XTH_FILE="$SCRIPT_DIR/SpaceNeonMinimal.xth"
+LAST_DARK_GLASS_ZTH="$SCRIPT_DIR/Last Dark Glass Theme.zth"
+LAST_DARK_GLASS_XTH="$SCRIPT_DIR/Last Dark Glass Theme.xth"
 ICONS_ZIP="$SCRIPT_DIR/icons.zip"
 THEME_SRC_ICONS="$SCRIPT_DIR/theme_src/icons"
 
 # Auto-compile if not present
-if [ ! -f "$ZTH_FILE" ] || [ ! -f "$ICONS_ZIP" ]; then
-    echo "[*] Compiling latest Space Neon theme assets..."
+if [ ! -f "$ZTH_FILE" ] || [ ! -f "$ICONS_ZIP" ] || [ ! -f "$LAST_DARK_GLASS_ZTH" ]; then
+    echo "[*] Compiling latest Space Neon & Dark Glass theme assets..."
     python3 "$SCRIPT_DIR/builder/build_theme.py"
 fi
 
@@ -58,9 +60,9 @@ if [ "$1" == "--clean" ] || [ "$1" == "--uninstall" ] || [ "$1" == "--restore" ]
         "/sdcard/Download"
     )
 
-    echo "[*] Deleting Space Neon theme files from device storage..."
+    echo "[*] Deleting Space Neon & Last Dark Glass theme files from device storage..."
     for dir in "${TARGET_DIRS[@]}"; do
-        "$ADB_BIN" shell rm -f "$dir/SpaceNeonMinimal.zth" "$dir/SpaceNeonMinimal.xth" 2>/dev/null || true
+        "$ADB_BIN" shell rm -f "$dir/SpaceNeonMinimal.zth" "$dir/SpaceNeonMinimal.xth" "$dir/Last Dark Glass Theme.zth" "$dir/Last Dark Glass Theme.xth" 2>/dev/null || true
     done
 
     echo "[*] Force-stopping Hi Theme and HiOS Launcher to clear cache..."
@@ -139,7 +141,7 @@ fi
 "$ADB_BIN" push "$WP_LOCK" "/sdcard/Android/data/com.transsion.theme/files/.Wallpaper/lockscreen_wallpaper.jpg" 2>/dev/null || true
 
 # 2. Full Theme Package Deployment (.zth / .xth)
-echo "[*] Step 3: Deploying Space Neon Minimal full theme (.zth)..."
+echo "[*] Step 3: Deploying Space Neon Minimal & Last Dark Glass full themes (.zth / .xth)..."
 THEME_TARGETS=(
     "/sdcard/Android/data/com.transsion.theme/files/DIY"
     "/sdcard/Android/data/com.transsion.theme/files/Theme"
@@ -151,8 +153,12 @@ THEME_TARGETS=(
 
 for dir in "${THEME_TARGETS[@]}"; do
     "$ADB_BIN" shell mkdir -p "$dir" 2>/dev/null || true
+    echo "  -> Pushing Space Neon Minimal to $dir"
     "$ADB_BIN" push "$ZTH_FILE" "$dir/" 2>/dev/null || true
     "$ADB_BIN" push "$XTH_FILE" "$dir/" 2>/dev/null || true
+    echo "  -> Pushing Last Dark Glass Theme to $dir"
+    "$ADB_BIN" push "$LAST_DARK_GLASS_ZTH" "$dir/" 2>/dev/null || true
+    "$ADB_BIN" push "$LAST_DARK_GLASS_XTH" "$dir/" 2>/dev/null || true
 done
 
 # 3. Force-Stop to Clear Memory Cache
@@ -163,26 +169,30 @@ echo "[*] Step 4: Refreshing HiTheme and HiOS Launcher..."
 
 echo ""
 echo "============================================================"
-echo " [✓] SUCCESS: Space Neon Minimal deployed to your Tecno device!"
+echo " [✓] SUCCESS: Themes & Dark Glass Icons deployed to your Tecno device!"
 echo "============================================================"
+echo ""
+echo "Themes Installed on Your Phone:"
+echo "  1. 'Space Neon Minimal' (Cyber Neon Black Hole + 1,200+ Dark Glass Icons)"
+echo "  2. 'Last Dark Glass Theme' (Pure Dark Glass Theme & Lockscreen)"
 echo ""
 echo "How to apply on your Tecno phone (Choose either method):"
 echo ""
-echo "METHOD A (Instant 1-Tap EasyDIY - RECOMMENDED):"
+echo "METHOD A (Full Theme via Hi Theme - RECOMMENDED):"
+echo "  1. Open 'Hi Theme' on your phone."
+echo "  2. Tap 'Me' (bottom right) -> 'My Themes' (or 'DIY')."
+echo "  3. You will see BOTH 'Space Neon Minimal' and 'Last Dark Glass Theme'!"
+echo "  4. Tap the theme you want and tap 'Apply'!"
+echo ""
+echo "METHOD B (Instant 1-Tap EasyDIY Icon Pack):"
 echo "  1. Open 'Hi Theme' on your phone."
 echo "  2. Go to 'DIY' (or 'Customize') -> Tap 'Icons'."
-echo "  3. Select the 'Space Neon' icon pack (replaces pack 2057)."
-echo "  4. Tap 'Apply' -> ALL system icons immediately switch to monochrome YAMIS,"
-echo "     and all unthemed apps retain their native HiOS squircle shape!"
-echo ""
-echo "METHOD B (Full Theme):"
-echo "  1. Open 'Hi Theme' -> Tap 'Me' (bottom right) -> 'My Themes' (or 'DIY')."
-echo "  2. Tap 'Space Neon Minimal'."
-echo "  3. Tap 'Apply'!"
+echo "  3. Select pack 2057 (now loaded with 1,200+ Dark Glass icons)."
+echo "  4. Tap 'Apply' -> ALL system and third-party apps adopt the Dark Glass style!"
 echo ""
 echo "IMPORTANT — TO SEE THE LOCK SCREEN WALLPAPER:"
 echo "  HiOS enables 'Lock screen magazine' (Glance) by default, which forcefully"
 echo "  overrides any theme's lockscreen picture with online photos."
-echo "  To see your Space Neon lockscreen wallpaper:"
+echo "  To see your custom lockscreen wallpaper:"
 echo "  -> Open Phone Settings -> 'Theme & lock screen' -> 'Lock screen magazine' -> Turn OFF."
 echo "============================================================"
