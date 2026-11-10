@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+<color name="cleaner_progress_color">#FFFF6B00</color>
+<color name="cleaner_progress_bg_color">#00000000</color>
+<color name="cleaner_progress_gap_color">#00000000</color>
+<color name="cleaner_text_color">#FFFFFFFF</color>
+<color name="cleaner_progress_color_start">#FFFF6B00</color>
+<color name="cleaner_progress_color_end">#FFFF9E00</color>
+<color name="tran_calendar_date_color">#FFFFFFFF</color>
+<color name="tran_calendar_week_color">#FFFF6B00</color>
+<color name="tran_calendar_gradation_start_color">#ff0e0f13</color>
+<color name="tran_calendar_gradation_end_color">#ff0e0f13</color>
+</resources>

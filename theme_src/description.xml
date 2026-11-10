@@ -3,12 +3,8 @@
     <title>Space Neon Minimal</title>
     <author>heli-toon</author>
     <designer>heli-toon</designer>
-    <version>1.0.0</version>
+    <version>15.0</version>
     <formatVersion>1</formatVersion>
-    <description>Ultra-minimal high-contrast cyber theme for Tecno HiOS and Infinix XOS. Deep space black (#0A0A0B), grayscale hierarchy, vibrant neon orange (#FF6B00) accents, and precision squircle monochrome icons.</description>
+    <description>Ultra-minimal high-contrast cyberpunk theme for Tecno HiOS and Infinix XOS.</description>
     <uiVersion>HiOS 8.0 - HiOS 15+</uiVersion>
-    <compatibility>
-        <minVersion>8.0</minVersion>
-        <targetVersion>15.0</targetVersion>
-    </compatibility>
 </theme>

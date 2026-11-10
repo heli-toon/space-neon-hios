@@ -13,8 +13,10 @@ Deep space blacks (`#0A0A0B`), grayscale hierarchy, and vibrant neon orange (`#F
 - **Cyber Deep Space Aesthetic**: Pure `#0A0A0B` obsidian background designed for OLED / AMOLED energy efficiency and eye comfort.
 - **Vibrant Neon Orange Accents**: Highlight color (`#FF6B00`) applied to borders, indicators, and primary action glyphs.
 - **55+ Hand-Crafted Themed Icons**: Precision squircle icons covering Tecno stock apps (Smart Caller, AI Gallery, File Manager, HiTheme, HiOS Launcher), Google Suite (Chrome, Play Store, YouTube, Maps, Gmail), and top social, knowledge, and developer tools (WhatsApp, Telegram, Termux, GitHub, Anytype, KDE Connect).
-- **Universal Launcher Masking**: Includes `icon_background.png`, `icon_border.png`, and `icon_mask.png` so unthemed 3rd-party apps match the dark squircle aesthetic automatically.
-- **Mobile-Optimized 1080×2400 Wallpapers**: 6 cropped high-resolution wallpapers tailored for tall 20:9 Transsion displays + original 4K desktop editions.
+- **HiOS 14/15 Native Engine & EasyDIY Support**: Full support for Transsion Friendly Component Names (`Phone.webp`, `Camera.webp`, `Settings.webp`, etc.) and standalone `icons.zip` for instant 1-tap EasyDIY application.
+- **Preserves Native Launcher Squircles**: Features OEM-tested 144×144 RGBA squircle clipping mask (`icon_mask.webp`) and plate (`icon_bg.webp`) so unthemed 3rd-party apps retain their native HiOS squircle curvature and original backgrounds without distortion or sharp corners.
+- **Dynamic Calendar & Clock Support**: Dynamic calendar plate and neon orange digit overlays (`calendar_0.webp` – `calendar_9.webp`).
+- **Mobile-Optimized 1080×2400 Wallpapers**: High-resolution homescreen and lockscreen wallpapers tailored for tall 20:9 Transsion displays + original 4K desktop editions.
 - **Multi-Method Deployment**:
   1. **1-Click ADB Installer** (`./adb_deploy.sh`) — Bypasses Android 13/14/15 scoped storage restrictions instantly.
   2. **Manual File Transfer** — Direct drop into `Android/data/.../DIY` using MT Manager, ZArchiver, or Shizuku.
@@ -65,7 +67,10 @@ This method bypasses modern Android scoped storage restrictions without needing 
    chmod +x adb_deploy.sh
    ./adb_deploy.sh
    ```
-4. Open the **Hi Theme** app on your phone, go to **Me / My Themes → DIY**, tap **Space Neon Minimal**, and hit **Apply**.
+4. **Apply on phone**:
+   - **Option A (Instant 1-Tap EasyDIY - Recommended)**: Open **Hi Theme** → **DIY** (or **Customize**) → **Icons** → Select **Space Neon** → Tap **Apply**.
+   - **Option B (Full Theme)**: Open **Hi Theme** → **Me** → **My Themes** → Tap **Space Neon Minimal** → Tap **Apply**.
+5. **Lockscreen Wallpaper**: Open phone **Settings** → **Theme & lock screen** → **Lock screen magazine** → Toggle **OFF** (HiOS enables this by default, overriding custom lockscreens with web photos).
 
 ---
 

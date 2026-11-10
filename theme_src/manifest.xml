@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest>
     <theme-name>Space Neon Minimal</theme-name>
-    <version>1.0.0</version>
+    <version>15.0</version>
     <author>heli-toon</author>
     <modules>
-        <module name="com.transsion.hilauncher" />
-        <module name="com.transsion.xoslauncher" />
         <module name="icons" />
+        <module name="Icons" />
         <module name="wallpaper" />
+        <module name="Wallpaper" />
     </modules>
 </manifest>

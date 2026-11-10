@@ -5,3 +5,5 @@ __pycache__/
 # Local temporary files
 *.tmp
 .DS_Store
+working_*
+
