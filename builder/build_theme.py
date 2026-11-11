@@ -43,9 +43,11 @@ PACKAGE_COMPONENT_ALIASES = {
     # 1. Weather (Tecno HiOS OEM Weather: com.rlk.weathers)
     "com_rlk_weathers": [
         "Weather",
+        "weather",
         "com.rlk.weathers",
         "com_rlk_weathers_activity_weathermainactivity",
         "com_rlk_weathers_ui_main_MainActivity",
+        "com_rlk_weathers_ui_main_mainactivity",
         "com_rlk_weathers_MainActivity",
         "com.transsion.weather",
         "com_transsion_weather",
@@ -55,16 +57,20 @@ PACKAGE_COMPONENT_ALIASES = {
     # 2. WhatsApp & WhatsApp Business
     "com_whatsapp": [
         "WhatsApp",
+        "whatsapp",
         "com.whatsapp",
         "com_whatsapp_Main",
+        "com_whatsapp_main",
         "com_whatsapp_com_whatsapp_Main",
     ],
     "com_whatsapp_w4b": [
         "WhatsAppBusiness",
         "WhatsApp4b",
         "WhatsApp_Business",
+        "whatsappbusiness",
         "com.whatsapp.w4b",
         "com_whatsapp_w4b_Main",
+        "com_whatsapp_w4b_main",
         "com_whatsapp_w4b_com_whatsapp_Main",
     ],
     # 3. Telegram & Telegram Web (including AquaIcon, DefaultIcon, etc.)
@@ -122,7 +128,14 @@ PACKAGE_COMPONENT_ALIASES = {
         "io.anytype.mobile",
         "io_anytype_mobile",
         "io_anytype_app_MainActivity",
+        "io_anytype_app_mainactivity",
         "io_anytype_app_com_anytypeio_anytype_ui_main_MainActivity",
+        "io_anytype_app_com_anytypeio_anytype_ui_main_mainactivity",
+        "com_anytypeio_anytype_ui_main_MainActivity",
+        "com_anytypeio_anytype_ui_main_mainactivity",
+        "com.anytypeio.anytype.ui.main.MainActivity",
+        "com_anytypeio_anytype",
+        "com.anytypeio.anytype",
     ],
     # 7. Outlook (Dark Glass individual fallback)
     "com_microsoft_office_outlook": [
@@ -161,21 +174,28 @@ PACKAGE_COMPONENT_ALIASES = {
     # Phone / Dialer
     "com_sh_smart_caller": [
         "Phone",
+        "phone",
         "Dialer",
+        "dialer",
         "com.sh.smart.caller",
+        "com_sh_smart_caller_MainActivity",
+        "com_sh_smart_caller_com_android_dialer_main_impl_MainActivity",
+        "com_android_dialer_main_impl_MainActivity",
+        "com_android_dialer_main_impl_mainactivity",
         "com_android_dialer",
         "com_android_phone",
         "com.android.dialer",
         "com.google.android.dialer",
         "com_google_android_dialer",
         "com_android_dialer_ic_launcher_phone",
-        "com_sh_smart_caller_MainActivity",
         "com_sh_smart_caller_ui_main_MainActivity",
     ],
     # Contacts
     "com_android_contacts": [
         "Contacts",
+        "contacts",
         "Contact",
+        "contact",
         "com.android.contacts",
         "com_android_contacts",
         "com.google.android.contacts",
@@ -184,6 +204,10 @@ PACKAGE_COMPONENT_ALIASES = {
         "com_transsion_contacts",
         "com_android_contacts_ic_launcher_contacts",
         "com_sh_smart_caller_ContactMainActivity",
+        "com_sh_smart_caller_com_android_dialer_ContactMainActivity",
+        "com_android_dialer_ContactMainActivity",
+        "com_sh_smart_caller_com_android_contacts_NonPhoneActivity",
+        "com_android_contacts_NonPhoneActivity",
         "com_google_android_contacts_activities_PeopleActivity",
     ],
     # Camera
@@ -208,12 +232,15 @@ PACKAGE_COMPONENT_ALIASES = {
     # Calendar
     "com_google_android_calendar": [
         "Calendar",
+        "calendar",
         "com.google.android.calendar",
         "com_android_calendar",
         "com.android.calendar",
         "com_transsion_calendar",
         "com.transsion.calendar",
         "com_android_calendar_AllInOneActivity",
+        "com_android_calendar_allinoneactivity",
+        "com_google_android_calendar_com_android_calendar_AllInOneActivity",
     ],
     # Clock
     "com_transsion_deskclock": [
@@ -258,13 +285,22 @@ PACKAGE_COMPONENT_ALIASES = {
         "GooglePhotos",
         "Gphotos",
         "Photos",
+        "Gallery",
+        "gallery",
         "com.google.android.apps.photos",
         "com_google_android_apps_photos_home_HomeActivity",
+        "com_transsion_aigallery",
+        "com.transsion.aigallery",
+        "com_android_gallery3d",
+        "com.android.gallery3d",
+        "com_gallery20_homeactivity",
     ],
     # Google Maps
     "com_google_android_apps_maps": [
         "GoogleMaps",
+        "googlemaps",
         "Maps",
+        "maps",
         "com.google.android.apps.maps",
         "com_google_android_maps_MapsActivity",
     ],
@@ -278,18 +314,26 @@ PACKAGE_COMPONENT_ALIASES = {
     # Gmail
     "com_google_android_gm": [
         "Gmail",
+        "gmail",
         "Email",
+        "email",
         "com.google.android.gm",
         "com_google_android_gm_ConversationListActivityGmail",
+        "com_google_android_gm_conversationlistactivitygmail",
     ],
     # Google Messages / SMS
     "com_google_android_apps_messaging": [
         "Messages",
+        "messages",
+        "Mms",
+        "mms",
         "com.google.android.apps.messaging",
         "com_android_mms",
         "com.android.mms",
         "com_android_messaging",
         "com_google_android_apps_messaging_ConversationListActivity",
+        "com_google_android_apps_messaging_ui_ConversationListActivity",
+        "com_google_android_apps_messaging_ui_conversation_LaunchConversationActivity",
     ],
     # YouTube
     "com_google_android_youtube": [
@@ -309,8 +353,11 @@ PACKAGE_COMPONENT_ALIASES = {
     # Google Play Store
     "com_android_vending": [
         "PlayStore",
+        "playstore",
+        "GooglePlay",
         "com.android.vending",
         "com_android_vending_AssetBrowserActivity",
+        "com_android_vending_assetbrowseractivity",
     ],
     # Instagram
     "com_instagram_android": [
@@ -340,8 +387,10 @@ PACKAGE_COMPONENT_ALIASES = {
     # Compass
     "com_transsion_compass": [
         "Compass",
+        "compass",
         "com.transsion.compass",
         "com_transsion_compass_CompassActivity",
+        "com_transsion_compass_compassactivity",
     ],
     # VLC
     "org_videolan_vlc": [
@@ -365,25 +414,40 @@ PACKAGE_COMPONENT_ALIASES = {
     # Claude
     "com_anthropic_claude": [
         "Claude",
+        "claude",
         "com.anthropic.claude",
         "com_anthropic_claude_MainActivity",
+        "com_anthropic_claude_mainactivity",
         "com_anthropic_claude_mainactivity_MainActivity",
+        "com_anthropic_claude_com_anthropic_claude_mainactivity_MainActivity",
     ],
     # Slack
     "com_slack": [
         "Slack",
+        "slack",
         "com.Slack",
         "com_Slack",
+        "com.slack",
         "com_Slack_HomeActivity",
+        "com_Slack_slack_app_HomeActivity",
         "slack_app_HomeActivity",
+        "slack_app_homeactivity",
     ],
     # Duolingo
     "com_duolingo": [
         "Duolingo",
+        "duolingo",
         "com.duolingo",
         "com_duolingo_LoginActivity",
+        "com_duolingo_loginactivity",
         "com_duolingo_app_LoginActivity",
-    ],
+        "com_duolingo_app_PreStreakSaver6Launcher",
+        "com_duolingo_app_StreakSocietyLauncher",
+        "com_duolingo_app_StreakSaverLauncher",
+        "com_duolingo_app_FixedRetentionChallengeLauncher",
+    ]
+    + [f"com_duolingo_app_SeasonalLauncher{i}" for i in range(1, 11)]
+    + [f"com_duolingo_app_PreStreakSaver{i}Launcher" for i in range(1, 11)],
     # F-Droid
     "org_fdroid_fdroid": [
         "FDroid",
@@ -401,9 +465,14 @@ PACKAGE_COMPONENT_ALIASES = {
     # Zoom
     "us_zoom_videomeetings": [
         "Zoom",
+        "zoom",
         "us.zoom.videomeetings",
         "us_zoom_videomeetings_LauncherActivity",
+        "us_zoom_videomeetings_launcheractivity",
+        "us_zoom_videomeetings_com_zipow_videobox_LauncherActivity",
         "com_zipow_videobox_LauncherActivity",
+        "com_zipow_videobox_launcheractivity",
+        "com_zipow_videobox",
     ],
     # Xender
     "cn_xender": [
@@ -478,11 +547,113 @@ PACKAGE_COMPONENT_ALIASES = {
         "com.binance.dev",
         "com_binance_dev_MainActivity",
     ],
-    # Notes / Notebook
+    # Notes / Notebook / Notepad
     "com_transsion_notebook": [
         "Notes",
+        "notes",
+        "Notepad",
+        "notepad",
         "com.transsion.notebook",
         "com_transsion_notebook_NotesList",
+        "com_transsion_notebook_noteslist",
+        "com_transsion_notebook_MainActivity",
+        "com_transsion_notepad",
+        "com_transsion_note",
+    ],
+    # Free Download Manager (FDM)
+    "org_freedownloadmanager_fdm": [
+        "FDM",
+        "fdm",
+        "org.freedownloadmanager.fdm",
+        "org_freedownloadmanager_fdm_MyActivity",
+        "org_freedownloadmanager_fdm_myactivity",
+        "org_freedownloadmanager_fdm_org_freedownloadmanager_fdm_MyActivity",
+    ],
+    # ProtonMail
+    "ch_protonmail_android": [
+        "ProtonMail",
+        "protonmail",
+        "ch.protonmail.android",
+        "ch_protonmail_android_RoutingActivity",
+        "ch_protonmail_android_routingactivity",
+        "ch_protonmail_android_ch_protonmail_android_RoutingActivity",
+        "ch_protonmail_android_ui_main_MainActivity",
+        "ch.protonmail.android.RoutingActivity",
+    ],
+    # ProtonVPN
+    "ch_protonvpn_android": [
+        "ProtonVPN",
+        "protonvpn",
+        "ch.protonvpn.android",
+        "ch_protonvpn_android_RoutingActivity",
+        "ch_protonvpn_android_routingactivity",
+        "ch_protonvpn_android_ch_protonvpn_android_RoutingActivity",
+        "ch_protonvpn_android_ui_main_MainActivity",
+        "ch.protonvpn.android.RoutingActivity",
+    ],
+    # Minecraft
+    "com_mojang_minecraftpe": [
+        "Minecraft",
+        "minecraft",
+        "com.mojang.minecraftpe",
+        "com_mojang_minecraftpe_MainActivity",
+        "com_mojang_minecraftpe_mainactivity",
+        "com_mojang_minecraftpe_com_mojang_minecraftpe_MainActivity",
+    ],
+    # Microsoft Edge
+    "com_microsoft_emmx": [
+        "MicrosoftEdge",
+        "Edge",
+        "edge",
+        "com.microsoft.emmx",
+        "com_microsoft_emmx_MainActivity",
+        "com_microsoft_emmx_mainactivity",
+        "com_microsoft_emmx_com_microsoft_ruby_Main",
+    ],
+    # Tor Browser
+    "org_torproject_torbrowser": [
+        "TorBrowser",
+        "Tor",
+        "tor",
+        "org.torproject.torbrowser",
+        "org_torproject_torbrowser_App",
+        "org_torproject_torbrowser_MainActivity",
+        "org_torproject_torbrowser_mainactivity",
+        "org_torproject_torbrowser_alpha",
+    ],
+    # FileZilla
+    "org_filezilla": [
+        "FileZilla",
+        "filezilla",
+        "org.filezilla",
+        "org_filezilla_client",
+    ],
+    # Luanti (Minetest)
+    "net_minetest_minetest": [
+        "Luanti",
+        "luanti",
+        "Minetest",
+        "minetest",
+        "net.minetest.minetest",
+        "net_minetest_minetest_MainActivity",
+        "net_minetest_minetest_mainactivity",
+    ],
+    # Pinta
+    "com_pinta": [
+        "Pinta",
+        "pinta",
+        "com.pinta",
+        "com_pinta_MainActivity",
+        "com_pinta_mainactivity",
+    ],
+    # Mozilla Firefox
+    "org_mozilla_firefox": [
+        "Firefox",
+        "firefox",
+        "org.mozilla.firefox",
+        "org_mozilla_firefox_App",
+        "org_mozilla_firefox_org_mozilla_fenix_HomeActivity",
+        "org_mozilla_fenix_HomeActivity",
     ],
 }
 
@@ -730,7 +901,7 @@ def cross_bind_aliases(icons_dir, yamis_handled_keys):
 
 
 def package_icons_zip(icons_dir, out_zip):
-    """Creates standalone icons.zip matching OEM EasyDIY format."""
+    """Creates standalone icons.zip matching OEM EasyDIY format (both root and icons/ paths)."""
     print(f"Packaging EasyDIY icon pack into {out_zip}...")
     if os.path.exists(out_zip):
         os.remove(out_zip)
@@ -738,6 +909,7 @@ def package_icons_zip(icons_dir, out_zip):
         for f in sorted(os.listdir(icons_dir)):
             full_p = os.path.join(icons_dir, f)
             z.write(full_p, f"icons/{f}")
+            z.write(full_p, f)
     print(f" -> icons.zip generated ({os.path.getsize(out_zip) // 1024} KB)")
 
 
@@ -881,6 +1053,10 @@ def package_theme_archives(theme_dir):
                     full_p = os.path.join(root, f)
                     rel_p = os.path.relpath(full_p, theme_dir)
                     zipf.write(full_p, rel_p)
+                    # Support HiOS / XOS dual case sensitivity: both icons/ and Icons/
+                    if rel_p.startswith("icons/"):
+                        icon_rel = "Icons/" + rel_p[len("icons/") :]
+                        zipf.write(full_p, icon_rel)
 
     print(f" -> HiOS Package:    {zth_path} ({os.path.getsize(zth_path) // 1024} KB)")
     print(f" -> XOS Package:     {xth_path} ({os.path.getsize(xth_path) // 1024} KB)")

@@ -26,11 +26,9 @@ XTH_FILE="$SCRIPT_DIR/SpaceNeonMinimal.xth"
 ICONS_ZIP="$SCRIPT_DIR/icons.zip"
 THEME_SRC_ICONS="$SCRIPT_DIR/theme_src/icons"
 
-# Auto-compile if not present
-if [ ! -f "$ZTH_FILE" ] || [ ! -f "$ICONS_ZIP" ]; then
-    echo "[*] Compiling latest Space Neon theme assets..."
-    python3 "$SCRIPT_DIR/builder/build_theme.py"
-fi
+# Ensure latest Space Neon theme assets are compiled
+echo "[*] Compiling latest Space Neon theme assets..."
+python3 "$SCRIPT_DIR/builder/build_theme.py"
 
 echo "============================================================"
 echo " Space Neon HiOS — ADB Theme & Icon Installer"
@@ -108,6 +106,8 @@ echo "[*] Step 1: Injecting clean Space Neon EasyDIY icon pack (YAMIS monochrome
 EASYDIY_DOWNLOAD_DIRS=(
     "/sdcard/Android/data/com.transsion.theme/files/.EasyDIY/Download/2057"
     "/sdcard/Android/data/com.transsion.theme/files/.EasyDIY/Download/2056"
+    "/sdcard/Android/data/com.transsion.theme/files/.EasyDIY/2057"
+    "/sdcard/Android/data/com.transsion.theme/files/.EasyDIY/2056"
 )
 
 for ed_dir in "${EASYDIY_DOWNLOAD_DIRS[@]}"; do
