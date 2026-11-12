@@ -27,6 +27,8 @@ ICONS_ZIP="$SCRIPT_DIR/icons.zip"
 THEME_SRC_ICONS="$SCRIPT_DIR/theme_src/icons"
 
 # Ensure latest Space Neon theme assets are compiled
+echo "[*] Synchronizing crisp monochrome vector glyphs..."
+python3 "$SCRIPT_DIR/builder/generate_fixed_icons.py"
 echo "[*] Compiling latest Space Neon theme assets..."
 python3 "$SCRIPT_DIR/builder/build_theme.py"
 

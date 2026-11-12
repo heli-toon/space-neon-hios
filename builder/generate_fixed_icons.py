@@ -108,6 +108,77 @@ SVG_MAPPINGS = {
     "Zoom.svg": [
         "us.zoom.videomeetings.png",
     ],
+    "binance.svg": [
+        "com.binance.dev.png",
+    ],
+    "discord.svg": [
+        "com.discord.png",
+    ],
+    "expo.svg": [
+        "host.exp.exponent.png",
+    ],
+    "facebook.svg": [
+        "com.facebook.katana.png",
+    ],
+    "fdroid.svg": [
+        "org.fdroid.fdroid.png",
+    ],
+    "figma.svg": [
+        "com.figma.mirror.png",
+    ],
+    "googleassistant.svg": [
+        "com.google.android.apps.googleassistant.png",
+    ],
+    "googleauthenticator.svg": [
+        "com.google.android.apps.authenticator2.png",
+        "com.azure.authenticator.png",
+    ],
+    "googlecalendar.svg": [
+        "com.google.android.calendar.png",
+        "com.android.calendar.png",
+        "com.transsion.calendar.png",
+    ],
+    "googledocs.svg": [
+        "com.google.android.apps.docs.editors.docs.png",
+    ],
+    "googledrive.svg": [
+        "com.google.android.apps.docs.png",
+    ],
+    "googlegemini.svg": [
+        "com.google.android.apps.bard.png",
+    ],
+    "googlemeet.svg": [
+        "com.google.android.apps.tachyon.png",
+    ],
+    "googlemessages.svg": [
+        "com.google.android.apps.messaging.png",
+        "com.android.mms.png",
+    ],
+    "googlenews.svg": [
+        "com.google.android.apps.magazines.png",
+    ],
+    "googlephotos.svg": [
+        "com.google.android.apps.photos.png",
+        "com.transsion.aigallery.png",
+    ],
+    "googlesheets.svg": [
+        "com.google.android.apps.docs.editors.sheets.png",
+    ],
+    "googleslides.svg": [
+        "com.google.android.apps.docs.editors.slides.png",
+    ],
+    "meetup.svg": [
+        "com.meetup.png",
+    ],
+    "messenger.svg": [
+        "com.facebook.orca.png",
+    ],
+    "moodle.svg": [
+        "com.moodle.moodlemobile.png",
+    ],
+    "threads.svg": [
+        "com.instagram.barcelona.png",
+    ],
 }
 
 
@@ -122,10 +193,11 @@ def process_vector_svg(svg_path, target_dim=330):
         ".ColorScheme-Text { color: #ffffff; fill: #ffffff; }",
         svg_content,
     )
-    if 'fill="currentColor"' in svg_content or 'fill="black"' in svg_content:
-        svg_content = svg_content.replace('fill="black"', 'fill="#ffffff"').replace(
-            'fill="currentColor"', 'fill="#ffffff"'
-        )
+    if "fill=" in svg_content:
+        svg_content = re.sub(r'fill="[^"]+"', 'fill="#ffffff"', svg_content)
+        svg_content = re.sub(r"fill='[^']+'", 'fill="#ffffff"', svg_content)
+    else:
+        svg_content = re.sub(r"<svg\b", '<svg fill="#ffffff"', svg_content, count=1)
 
     tmp_png = "/tmp/_vector_svg_render.png"
     cairosvg.svg2png(

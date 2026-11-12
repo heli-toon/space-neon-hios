@@ -369,10 +369,17 @@ PACKAGE_COMPONENT_ALIASES = {
     "com_transsion_theme": [
         "Theme",
         "Themes",
+        "theme",
+        "themes",
         "com.transsion.theme",
+        "com_transsion_theme",
+        "com_transsion_theme_common_XThemeMain",
         "com_transsion_theme_common_xthememain",
         "com.transsion.xtheme",
         "com_transsion_xtheme",
+        "com_infinix_xui_theme_ic_launcher",
+        "com_android_thememanager",
+        "com_android_thememanages",
     ],
     # Sound Recorder
     "com_transsion_soundrecorder": [
@@ -452,8 +459,15 @@ PACKAGE_COMPONENT_ALIASES = {
     "org_fdroid_fdroid": [
         "FDroid",
         "F-Droid",
+        "fdroid",
+        "f-droid",
         "org.fdroid.fdroid",
+        "org_fdroid_fdroid",
+        "org_fdroid_fdroid_org_fdroid_IconActivity",
+        "org_fdroid_fdroid_org_fdroid_iconactivity",
         "org_fdroid_fdroid_IconActivity",
+        "org_fdroid_fdroid_iconactivity",
+        "org_fdroid_fdroid_org_fdroid_fdroid_views_main_MainActivity",
     ],
     # Microsoft Teams
     "com_microsoft_teams": [
@@ -499,29 +513,58 @@ PACKAGE_COMPONENT_ALIASES = {
         "com.openai.chatgpt",
         "com_openai_chatgpt_MainActivity",
     ],
-    # Google Drive / Docs / Sheets
+    # Google Drive / Docs / Sheets / Slides
     "com_google_android_apps_docs": [
         "GoogleDrive",
         "Gdrive",
+        "Drive",
+        "drive",
         "com.google.android.apps.docs",
         "com_google_android_apps_docs_app_NewMainProxyActivity",
+        "com_google_android_apps_docs_app_newmainproxyactivity",
+    ],
+    "com_google_android_apps_docs_editors_docs": [
+        "GoogleDocs",
+        "Docs",
+        "docs",
+        "com.google.android.apps.docs.editors.docs",
+        "com_google_android_apps_docs_editors_docs_app_NewMainProxyActivity",
+        "com_google_android_apps_docs_editors_docs_app_newmainproxyactivity",
     ],
     "com_google_android_apps_docs_editors_sheets": [
         "GoogleSheets",
         "Sheets",
+        "sheets",
         "com.google.android.apps.docs.editors.sheets",
+        "com_google_android_apps_docs_editors_sheets_com_google_android_apps_docs_app_NewMainProxyActivity",
         "com_google_android_apps_docs_editors_sheets_app_NewMainProxyActivity",
+        "com_google_android_apps_docs_editors_sheets_app_newmainproxyactivity",
+    ],
+    "com_google_android_apps_docs_editors_slides": [
+        "GoogleSlides",
+        "Slides",
+        "slides",
+        "com.google.android.apps.docs.editors.slides",
+        "com_google_android_apps_docs_editors_slides_app_NewMainProxyActivity",
+        "com_google_android_apps_docs_editors_slides_app_newmainproxyactivity",
+        "com_google_android_apps_docs_editors_slides_com_google_android_apps_docs_app_NewMainProxyActivity",
     ],
     # Facebook & Messenger
     "com_facebook_katana": [
         "Facebook",
+        "facebook",
         "com.facebook.katana",
         "com_facebook_katana_LoginActivity",
+        "com_facebook_katana_loginactivity",
     ],
     "com_facebook_orca": [
         "Messenger",
+        "messenger",
         "com.facebook.orca",
+        "com_facebook_orca_auth_StartScreenActivity",
+        "com_facebook_orca_auth_startscreenactivity",
         "com_facebook_orca_StartScreenActivity",
+        "com_facebook_orca_startscreenactivity",
     ],
     # LinkedIn
     "com_linkedin_android": [
@@ -532,8 +575,116 @@ PACKAGE_COMPONENT_ALIASES = {
     # Discord
     "com_discord": [
         "Discord",
+        "discord",
         "com.discord",
+        "com_discord_main_MainDefault",
+        "com_discord_main_maindefault",
         "com_discord_MainDefault",
+        "com_discord_maindefault",
+        "com_discord_main_MainActivity",
+        "com_discord_main_mainactivity",
+        "com_discord_MainActivity",
+        "com_discord_mainactivity",
+    ],
+    # Expo Go
+    "host_exp_exponent": [
+        "Expo",
+        "expo",
+        "host.exp.exponent",
+        "host_exp_exponent_experience_HomeActivity",
+        "host_exp_exponent_experience_homeactivity",
+        "host_exp_exponent_HomeActivity",
+        "host_exp_exponent_homeactivity",
+    ],
+    # Figma
+    "com_figma_mirror": [
+        "Figma",
+        "figma",
+        "com.figma.mirror",
+        "com_figma_mirror_com_figma_figma_MainActivity",
+        "com_figma_mirror_com_figma_figma_mainactivity",
+        "com_figma_mirror_MainActivity",
+        "com_figma_mirror_mainactivity",
+    ],
+    # Google Assistant
+    "com_google_android_apps_googleassistant": [
+        "GoogleAssistant",
+        "Assistant",
+        "assistant",
+        "com.google.android.apps.googleassistant",
+        "com_google_android_apps_googleassistant_AssistantActivity",
+        "com_google_android_apps_googleassistant_assistantactivity",
+    ],
+    # Google Authenticator & Azure Authenticator
+    "com_google_android_apps_authenticator2": [
+        "GoogleAuthenticator",
+        "Authenticator",
+        "authenticator",
+        "com.google.android.apps.authenticator2",
+        "com_google_android_apps_authenticator2_main_MainActivity",
+        "com_google_android_apps_authenticator2_main_mainactivity",
+        "com_google_android_apps_authenticator2_MainActivity",
+        "com_google_android_apps_authenticator2_mainactivity",
+    ],
+    "com_azure_authenticator": [
+        "AzureAuthenticator",
+        "com.azure.authenticator",
+        "com_azure_authenticator_ui_LaunchActivity",
+        "com_azure_authenticator_ui_launchactivity",
+        "com_azure_authenticator_LaunchActivity",
+        "com_azure_authenticator_launchactivity",
+    ],
+    # Google Meet / Tachyon / Duo
+    "com_google_android_apps_tachyon": [
+        "GoogleMeet",
+        "Meet",
+        "meet",
+        "Tachyon",
+        "tachyon",
+        "Duo",
+        "duo",
+        "com.google.android.apps.tachyon",
+        "com_google_android_apps_tachyon_MainActivity",
+        "com_google_android_apps_tachyon_mainactivity",
+    ],
+    # Google News
+    "com_google_android_apps_magazines": [
+        "GoogleNews",
+        "News",
+        "news",
+        "com.google.android.apps.magazines",
+        "com_google_android_apps_magazines_MainActivity",
+        "com_google_android_apps_magazines_mainactivity",
+    ],
+    # Meetup
+    "com_meetup": [
+        "Meetup",
+        "meetup",
+        "com.meetup",
+        "com_meetup_feature_legacy_activity_BootstrapActivity",
+        "com_meetup_feature_legacy_activity_bootstrapactivity",
+        "com_meetup_BootstrapActivity",
+        "com_meetup_bootstrapactivity",
+        "com_meetup_MainActivity",
+        "com_meetup_mainactivity",
+    ],
+    # Moodle
+    "com_moodle_moodlemobile": [
+        "Moodle",
+        "moodle",
+        "com.moodle.moodlemobile",
+        "com_moodle_moodlemobile_MainActivity",
+        "com_moodle_moodlemobile_mainactivity",
+    ],
+    # Threads
+    "com_instagram_barcelona": [
+        "Threads",
+        "threads",
+        "com.instagram.barcelona",
+        "com_instagram_barcelona_mainactivity_BarcelonaActivity",
+        "com_instagram_barcelona_mainactivity_barcelonaactivity",
+        "com_instagram_barcelona_BarcelonaActivity",
+        "com_instagram_barcelona_barcelonaactivity",
     ],
     # WPS Office
     "cn_wps_moffice_eng": [
@@ -544,8 +695,12 @@ PACKAGE_COMPONENT_ALIASES = {
     # Binance
     "com_binance_dev": [
         "Binance",
+        "binance",
         "com.binance.dev",
+        "com_binance_dev_com_eaas_launcher_activities_main_MainActivity",
+        "com_binance_dev_com_eaas_launcher_activities_main_mainactivity",
         "com_binance_dev_MainActivity",
+        "com_binance_dev_mainactivity",
     ],
     # Notes / Notebook / Notepad
     "com_transsion_notebook": [
@@ -683,6 +838,10 @@ DARK_GLASS_INDIVIDUAL_FALLBACK_APPS = [
     "com_transsion_mobilecloner",
     "com_azure_authenticator",
     "com_transsion_notebook",
+    "Theme",
+    "Themes",
+    "com_transsion_theme",
+    "com_transsion_xtheme",
 ]
 
 
@@ -827,6 +986,13 @@ def import_fallback_dark_glass_icons(icons_dir, yamis_handled_keys):
                 if "bard.png" in dark_glass_files:
                     source_entry = dark_glass_files["bard.png"]
 
+            # Special case for HiTheme (Paint Roller icon)
+            if not source_entry and ("theme" in app_key.lower() or app_key in ["Theme", "Themes"]):
+                if "Theme.png" in dark_glass_files:
+                    source_entry = dark_glass_files["Theme.png"]
+                elif "Themes.png" in dark_glass_files:
+                    source_entry = dark_glass_files["Themes.png"]
+
             if source_entry:
                 dest_png = os.path.join(icons_dir, f"{app_key}.png")
                 with open(dest_png, "wb") as out:
@@ -839,6 +1005,16 @@ def import_fallback_dark_glass_icons(icons_dir, yamis_handled_keys):
                         im.save(dest_webp, "WEBP", quality=100, lossless=True, method=0)
                 except Exception:
                     pass
+
+                # HiTheme explicit seeds
+                if "theme" in app_key.lower() or app_key in ["Theme", "Themes"]:
+                    for th_name in ["Theme", "Themes", "com.transsion.theme", "com_transsion_theme"]:
+                        th_png = os.path.join(icons_dir, f"{th_name}.png")
+                        th_webp = os.path.join(icons_dir, f"{th_name}.webp")
+                        if not os.path.exists(th_png):
+                            shutil.copy(dest_png, th_png)
+                        if not os.path.exists(th_webp) and os.path.exists(dest_webp):
+                            shutil.copy(dest_webp, th_webp)
 
                 imported_count += 1
                 print(f"  [Fallback Added] {app_key} from {source_entry}")
