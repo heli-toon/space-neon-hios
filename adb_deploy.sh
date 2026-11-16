@@ -118,6 +118,23 @@ for ed_dir in "${EASYDIY_DOWNLOAD_DIRS[@]}"; do
     "$ADB_BIN" shell mkdir -p "$ed_dir/icons" 2>/dev/null || true
     "$ADB_BIN" push "$ICONS_ZIP" "$ed_dir/icons.zip" 2>/dev/null || true
     "$ADB_BIN" push "$THEME_SRC_ICONS/." "$ed_dir/icons/" 2>/dev/null || true
+    "$ADB_BIN" push "$SCRIPT_DIR/theme_src/package_icons.xml" "$ed_dir/package_icons.xml" 2>/dev/null || true
+    "$ADB_BIN" push "$SCRIPT_DIR/theme_src/package_icons.xml" "$ed_dir/icons/package_icons.xml" 2>/dev/null || true
+done
+
+# Also update any active DIY Edit sessions
+EDIT_DIRS=$("$ADB_BIN" shell ls -d /sdcard/Android/data/com.transsion.theme/files/.EasyDIY/Edit/* 2>/dev/null || true)
+for edit_dir in $EDIT_DIRS; do
+    edit_dir=$(echo "$edit_dir" | tr -d '\r')
+    if [ -n "$edit_dir" ] && [ "$edit_dir" != "ls:*" ]; then
+        echo "  -> Updating active DIY Edit directory: $edit_dir"
+        "$ADB_BIN" shell rm -rf "$edit_dir/icons" 2>/dev/null || true
+        "$ADB_BIN" shell mkdir -p "$edit_dir/icons" 2>/dev/null || true
+        "$ADB_BIN" push "$ICONS_ZIP" "$edit_dir/icons.zip" 2>/dev/null || true
+        "$ADB_BIN" push "$THEME_SRC_ICONS/." "$edit_dir/icons/" 2>/dev/null || true
+        "$ADB_BIN" push "$SCRIPT_DIR/theme_src/package_icons.xml" "$edit_dir/package_icons.xml" 2>/dev/null || true
+        "$ADB_BIN" push "$SCRIPT_DIR/theme_src/package_icons.xml" "$edit_dir/icons/package_icons.xml" 2>/dev/null || true
+    fi
 done
 
 # 2. Full Theme Package Deployment (.zth / .xth)
@@ -136,6 +153,7 @@ for dir in "${THEME_TARGETS[@]}"; do
     echo "  -> Pushing Space Neon Minimal to $dir"
     "$ADB_BIN" push "$ZTH_FILE" "$dir/" 2>/dev/null || true
     "$ADB_BIN" push "$XTH_FILE" "$dir/" 2>/dev/null || true
+    "$ADB_BIN" push "$SCRIPT_DIR/theme_src/package_icons.xml" "$dir/package_icons.xml" 2>/dev/null || true
 done
 
 # 3. Force-Stop to Clear Memory Cache

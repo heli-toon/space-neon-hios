@@ -31,6 +31,7 @@ except ImportError:
     generate_fixed_icons = None
 BASE_DIR = os.path.dirname(BUILDER_DIR)
 DARK_GLASS_ASSETS_DIR = os.path.join(BUILDER_DIR, "dark_glass_assets")
+DARK_GLASS_FALLBACKS_DIR = os.path.join(DARK_GLASS_ASSETS_DIR, "fallbacks")
 EXTRACTED_ICONS_DIR = os.path.join(BUILDER_DIR, "extracted_user_icons")
 RAW_PNG_512_DIR = os.path.join(BASE_DIR, "raw_monochrome_pngs_512")
 RAW_PNG_256_DIR = os.path.join(BASE_DIR, "raw_monochrome_pngs_256")
@@ -137,11 +138,13 @@ PACKAGE_COMPONENT_ALIASES = {
         "com_anytypeio_anytype",
         "com.anytypeio.anytype",
     ],
-    # 7. Outlook (Dark Glass individual fallback)
+    # 7. Outlook
     "com_microsoft_office_outlook": [
         "Outlook",
+        "outlook",
         "com.microsoft.office.outlook",
         "com_microsoft_office_outlook_MainActivity",
+        "com_microsoft_office_outlook_mainactivity",
         "com_microsoft_office_outlook_com_microsoft_office_outlook_MainActivity",
     ],
     # 8. Gemini / Bard (Dark Glass individual fallback)
@@ -307,9 +310,14 @@ PACKAGE_COMPONENT_ALIASES = {
     # Google Search / QuickSearchBox
     "com_google_android_googlequicksearchbox": [
         "QuickSearchBox",
+        "GoogleSearch",
+        "googlesearch",
         "Google",
+        "google",
         "com.google.android.googlequicksearchbox",
         "com_google_android_googlequicksearchbox_SearchActivity",
+        "com_google_android_googlequicksearchbox_searchactivity",
+        "com_google_android_googlequicksearchbox_com_google_android_googlequicksearchbox_SearchActivity",
     ],
     # Gmail
     "com_google_android_gm": [
@@ -371,6 +379,8 @@ PACKAGE_COMPONENT_ALIASES = {
         "Themes",
         "theme",
         "themes",
+        "HiTheme",
+        "hitheme",
         "com.transsion.theme",
         "com_transsion_theme",
         "com_transsion_theme_common_XThemeMain",
@@ -380,6 +390,7 @@ PACKAGE_COMPONENT_ALIASES = {
         "com_infinix_xui_theme_ic_launcher",
         "com_android_thememanager",
         "com_android_thememanages",
+        "com_transsion_theme_com_transsion_theme_common_XThemeMain",
     ],
     # Sound Recorder
     "com_transsion_soundrecorder": [
@@ -463,6 +474,8 @@ PACKAGE_COMPONENT_ALIASES = {
         "f-droid",
         "org.fdroid.fdroid",
         "org_fdroid_fdroid",
+        "org_fdroid_IconActivity",
+        "org_fdroid_iconactivity",
         "org_fdroid_fdroid_org_fdroid_IconActivity",
         "org_fdroid_fdroid_org_fdroid_iconactivity",
         "org_fdroid_fdroid_IconActivity",
@@ -510,8 +523,10 @@ PACKAGE_COMPONENT_ALIASES = {
     # ChatGPT
     "com_openai_chatgpt": [
         "ChatGPT",
+        "chatgpt",
         "com.openai.chatgpt",
         "com_openai_chatgpt_MainActivity",
+        "com_openai_chatgpt_mainactivity",
     ],
     # Google Drive / Docs / Sheets / Slides
     "com_google_android_apps_docs": [
@@ -520,8 +535,6 @@ PACKAGE_COMPONENT_ALIASES = {
         "Drive",
         "drive",
         "com.google.android.apps.docs",
-        "com_google_android_apps_docs_app_NewMainProxyActivity",
-        "com_google_android_apps_docs_app_newmainproxyactivity",
     ],
     "com_google_android_apps_docs_editors_docs": [
         "GoogleDocs",
@@ -539,6 +552,8 @@ PACKAGE_COMPONENT_ALIASES = {
         "com_google_android_apps_docs_editors_sheets_com_google_android_apps_docs_app_NewMainProxyActivity",
         "com_google_android_apps_docs_editors_sheets_app_NewMainProxyActivity",
         "com_google_android_apps_docs_editors_sheets_app_newmainproxyactivity",
+        "com_google_android_apps_docs_app_NewMainProxyActivity",
+        "com_google_android_apps_docs_app_newmainproxyactivity",
     ],
     "com_google_android_apps_docs_editors_slides": [
         "GoogleSlides",
@@ -569,8 +584,13 @@ PACKAGE_COMPONENT_ALIASES = {
     # LinkedIn
     "com_linkedin_android": [
         "LinkedIn",
+        "linkedin",
         "com.linkedin.android",
+        "com_linkedin_android_authenticator_LaunchActivityDefault",
+        "com_linkedin_android_authenticator_launchactivitydefault",
         "com_linkedin_android_LaunchActivityDefault",
+        "com_linkedin_android_launchactivitydefault",
+        "com_linkedin_android_com_linkedin_android_authenticator_LaunchActivityDefault",
     ],
     # Discord
     "com_discord": [
@@ -601,6 +621,8 @@ PACKAGE_COMPONENT_ALIASES = {
         "Figma",
         "figma",
         "com.figma.mirror",
+        "com_figma_figma_MainActivity",
+        "com_figma_figma_mainactivity",
         "com_figma_mirror_com_figma_figma_MainActivity",
         "com_figma_mirror_com_figma_figma_mainactivity",
         "com_figma_mirror_MainActivity",
@@ -618,8 +640,7 @@ PACKAGE_COMPONENT_ALIASES = {
     # Google Authenticator & Azure Authenticator
     "com_google_android_apps_authenticator2": [
         "GoogleAuthenticator",
-        "Authenticator",
-        "authenticator",
+        "googleauthenticator",
         "com.google.android.apps.authenticator2",
         "com_google_android_apps_authenticator2_main_MainActivity",
         "com_google_android_apps_authenticator2_main_mainactivity",
@@ -627,12 +648,16 @@ PACKAGE_COMPONENT_ALIASES = {
         "com_google_android_apps_authenticator2_mainactivity",
     ],
     "com_azure_authenticator": [
+        "MicrosoftAuthenticator",
+        "microsoftauthenticator",
         "AzureAuthenticator",
+        "azureauthenticator",
         "com.azure.authenticator",
         "com_azure_authenticator_ui_LaunchActivity",
         "com_azure_authenticator_ui_launchactivity",
         "com_azure_authenticator_LaunchActivity",
         "com_azure_authenticator_launchactivity",
+        "com_azure_authenticator_com_azure_authenticator_ui_LaunchActivity",
     ],
     # Google Meet / Tachyon / Duo
     "com_google_android_apps_tachyon": [
@@ -689,14 +714,21 @@ PACKAGE_COMPONENT_ALIASES = {
     # WPS Office
     "cn_wps_moffice_eng": [
         "WPSOffice",
+        "wpsoffice",
+        "WPS",
+        "wps",
         "cn.wps.moffice_eng",
+        "cn_wps_moffice_documentmanager_ab_proxy_main",
         "cn_wps_moffice_documentmanager_PreStartActivity",
+        "cn_wps_moffice_eng_cn_wps_moffice_documentmanager_ab_proxy_main",
     ],
     # Binance
     "com_binance_dev": [
         "Binance",
         "binance",
         "com.binance.dev",
+        "com_eaas_launcher_activities_main_MainActivity",
+        "com_eaas_launcher_activities_main_mainactivity",
         "com_binance_dev_com_eaas_launcher_activities_main_MainActivity",
         "com_binance_dev_com_eaas_launcher_activities_main_mainactivity",
         "com_binance_dev_MainActivity",
@@ -810,38 +842,103 @@ PACKAGE_COMPONENT_ALIASES = {
         "org_mozilla_firefox_org_mozilla_fenix_HomeActivity",
         "org_mozilla_fenix_HomeActivity",
     ],
+    # NetGuard
+    "eu_faircode_netguard": [
+        "NetGuard",
+        "netguard",
+        "eu.faircode.netguard",
+        "eu_faircode_netguard_ActivityMain",
+        "eu_faircode_netguard_activitymain",
+        "eu_faircode_netguard_eu_faircode_netguard_ActivityMain",
+    ],
+    # Snapchat
+    "com_snapchat_android": [
+        "Snapchat",
+        "snapchat",
+        "com.snapchat.android",
+        "com_snapchat_android_LandingPageActivity",
+        "com_snapchat_android_landingpageactivity",
+        "com_snapchat_android_com_snapchat_android_LandingPageActivity",
+    ],
+    # Pinterest
+    "com_pinterest": [
+        "Pinterest",
+        "pinterest",
+        "com.pinterest",
+        "com_pinterest_activity_PinterestActivity",
+        "com_pinterest_activity_pinterestactivity",
+        "com_pinterest_activity_TaskHandlerActivity",
+        "com_pinterest_com_pinterest_activity_PinterestActivity",
+    ],
+    # SoloLearn
+    "com_sololearn": [
+        "SoloLearn",
+        "sololearn",
+        "com.sololearn",
+        "com_sololearn_app_ui_launcher_LauncherActivity",
+        "com_sololearn_app_ui_launcher_launcheractivity",
+        "com_sololearn_com_sololearn_app_ui_launcher_LauncherActivity",
+    ],
+    # Chess.com
+    "com_chess": [
+        "Chess",
+        "chess",
+        "Chesscom",
+        "chesscom",
+        "com.chess",
+        "com_chess_splash_SplashActivity",
+        "com_chess_splash_splashactivity",
+        "com_chess_com_chess_splash_SplashActivity",
+    ],
+    # DeepSeek
+    "com_deepseek_chat": [
+        "DeepSeek",
+        "deepseek",
+        "com.deepseek.chat",
+        "com_deepseek_chat_MainActivity",
+        "com_deepseek_chat_mainactivity",
+        "com_deepseek_chat_com_deepseek_chat_MainActivity",
+    ],
+    # Kimi
+    "com_moonshot_kimichat": [
+        "Kimi",
+        "kimi",
+        "com.moonshot.kimichat",
+        "com_moonshot_kimichat_MainActivity",
+        "com_moonshot_kimichat_mainactivity",
+        "com_moonshot_kimichat_com_moonshot_kimichat_MainActivity",
+    ],
+    # Meta AI
+    "com_facebook_metaai": [
+        "MetaAI",
+        "metaai",
+        "com.facebook.metaai",
+        "com_facebook_metaai_MainActivity",
+        "com_facebook_metaai_mainactivity",
+        "com_facebook_metaai_com_facebook_metaai_MainActivity",
+    ],
+    # Luma
+    "com_luma_mobile": [
+        "Luma",
+        "luma",
+        "com.luma.mobile",
+        "com_luma_mobile_MainActivity",
+        "com_luma_mobile_mainactivity",
+        "com_luma_mobile_com_luma_mobile_MainActivity",
+    ],
 }
 
 # Individual apps installed on user device that need fallback Dark Glass icons
 # (ONLY if a YAMIS monochrome icon is NOT present)
 DARK_GLASS_INDIVIDUAL_FALLBACK_APPS = [
-    "com_microsoft_office_outlook",
-    "com_google_android_apps_bard",
-    "cn_wps_moffice_eng",
-    "com_binance_dev",
-    "com_discord",
-    "com_facebook_katana",
-    "com_facebook_orca",
     "com_facebook_pages_app",
     "com_google_android_apps_adm",
-    "com_google_android_apps_authenticator2",
-    "com_google_android_apps_docs",
-    "com_google_android_apps_docs_editors_sheets",
-    "com_google_android_apps_googleassistant",
     "com_google_android_apps_safetyhub",
-    "com_google_android_apps_tachyon",
     "com_google_android_apps_wellbeing",
     "com_google_android_play_games",
-    "com_linkedin_android",
     "com_openai_chatgpt",
     "com_alphainventor_filemanager",
     "com_transsion_mobilecloner",
-    "com_azure_authenticator",
-    "com_transsion_notebook",
-    "Theme",
-    "Themes",
-    "com_transsion_theme",
-    "com_transsion_xtheme",
 ]
 
 
@@ -939,6 +1036,8 @@ def composite_raw_glyphs(icons_dir, dark_bg):
                 continue
             pkg = f.replace("_icon.png", "")
             under_pkg = pkg.replace(".", "_")
+            if pkg in yamis_handled_keys or under_pkg in yamis_handled_keys:
+                continue
             raw_path = os.path.join(EXTRACTED_ICONS_DIR, f)
 
             with Image.open(raw_path) as im:
@@ -956,68 +1055,67 @@ def composite_raw_glyphs(icons_dir, dark_bg):
 
 def import_fallback_dark_glass_icons(icons_dir, yamis_handled_keys):
     """
-    Imports INDIVIDUAL icons from Last Dark Glass Theme ONLY IF no YAMIS monochrome
-    version exists for that app. Does NOT bulk import the 500+ Dark Glass pack.
+    Imports INDIVIDUAL icons from dark_glass_fallbacks or Last Dark Glass Theme
+    ONLY IF no YAMIS monochrome version exists for that app.
     """
     print("Checking individual Dark Glass fallback icons for non-YAMIS apps...")
-    if not os.path.exists(LAST_DARK_GLASS_ZTH):
-        print("[-] Last Dark Glass Theme.zth not found, skipping fallbacks.")
-        return
-
     imported_count = 0
-    with zipfile.ZipFile(LAST_DARK_GLASS_ZTH, "r") as z:
-        dark_glass_files = {os.path.basename(f): f for f in z.namelist() if f.startswith("icons/") and f.endswith(".png")}
 
-        for app_key in DARK_GLASS_INDIVIDUAL_FALLBACK_APPS:
+    # 1. Standalone extracted fallbacks (preferred, removes need for 50MB Last Dark Glass Theme.zth)
+    if os.path.exists(DARK_GLASS_FALLBACKS_DIR):
+        for f in os.listdir(DARK_GLASS_FALLBACKS_DIR):
+            if not f.endswith(".png"):
+                continue
+            app_key, _ = os.path.splitext(f)
             dot_key = app_key.replace("_", ".")
-            # Only import if NOT already handled by YAMIS
             if app_key in yamis_handled_keys or dot_key in yamis_handled_keys:
                 continue
+            src_png = os.path.join(DARK_GLASS_FALLBACKS_DIR, f)
+            dest_png = os.path.join(icons_dir, f)
+            shutil.copy(src_png, dest_png)
+            dest_webp = os.path.join(icons_dir, f"{app_key}.webp")
+            try:
+                with Image.open(dest_png) as im:
+                    im.save(dest_webp, "WEBP", quality=100, lossless=True, method=0)
+            except Exception:
+                pass
+            imported_count += 1
+            print(f"  [Fallback Added] {app_key} from fallbacks/")
 
-            # Look for matching icon in Dark Glass archive
-            source_entry = None
-            for candidate in [f"{app_key}.png", f"{dot_key}.png"]:
-                if candidate in dark_glass_files:
-                    source_entry = dark_glass_files[candidate]
-                    break
+    # 2. Fallback to Last Dark Glass Theme.zth if present
+    if os.path.exists(LAST_DARK_GLASS_ZTH):
+        with zipfile.ZipFile(LAST_DARK_GLASS_ZTH, "r") as z:
+            dark_glass_files = {os.path.basename(f): f for f in z.namelist() if f.startswith("icons/") and f.endswith(".png")}
 
-            # Special case for Gemini / Bard
-            if not source_entry and "bard" in app_key:
-                if "bard.png" in dark_glass_files:
-                    source_entry = dark_glass_files["bard.png"]
+            for app_key in DARK_GLASS_INDIVIDUAL_FALLBACK_APPS:
+                dot_key = app_key.replace("_", ".")
+                if app_key in yamis_handled_keys or dot_key in yamis_handled_keys or os.path.exists(os.path.join(icons_dir, f"{app_key}.png")):
+                    continue
 
-            # Special case for HiTheme (Paint Roller icon)
-            if not source_entry and ("theme" in app_key.lower() or app_key in ["Theme", "Themes"]):
-                if "Theme.png" in dark_glass_files:
-                    source_entry = dark_glass_files["Theme.png"]
-                elif "Themes.png" in dark_glass_files:
-                    source_entry = dark_glass_files["Themes.png"]
+                source_entry = None
+                for candidate in [f"{app_key}.png", f"{dot_key}.png"]:
+                    if candidate in dark_glass_files:
+                        source_entry = dark_glass_files[candidate]
+                        break
 
-            if source_entry:
-                dest_png = os.path.join(icons_dir, f"{app_key}.png")
-                with open(dest_png, "wb") as out:
-                    out.write(z.read(source_entry))
+                if not source_entry and "bard" in app_key:
+                    if "bard.png" in dark_glass_files:
+                        source_entry = dark_glass_files["bard.png"]
 
-                # Save matching lossless WebP
-                dest_webp = os.path.join(icons_dir, f"{app_key}.webp")
-                try:
-                    with Image.open(dest_png) as im:
-                        im.save(dest_webp, "WEBP", quality=100, lossless=True, method=0)
-                except Exception:
-                    pass
+                if source_entry:
+                    dest_png = os.path.join(icons_dir, f"{app_key}.png")
+                    with open(dest_png, "wb") as out:
+                        out.write(z.read(source_entry))
 
-                # HiTheme explicit seeds
-                if "theme" in app_key.lower() or app_key in ["Theme", "Themes"]:
-                    for th_name in ["Theme", "Themes", "com.transsion.theme", "com_transsion_theme"]:
-                        th_png = os.path.join(icons_dir, f"{th_name}.png")
-                        th_webp = os.path.join(icons_dir, f"{th_name}.webp")
-                        if not os.path.exists(th_png):
-                            shutil.copy(dest_png, th_png)
-                        if not os.path.exists(th_webp) and os.path.exists(dest_webp):
-                            shutil.copy(dest_webp, th_webp)
+                    dest_webp = os.path.join(icons_dir, f"{app_key}.webp")
+                    try:
+                        with Image.open(dest_png) as im:
+                            im.save(dest_webp, "WEBP", quality=100, lossless=True, method=0)
+                    except Exception:
+                        pass
 
-                imported_count += 1
-                print(f"  [Fallback Added] {app_key} from {source_entry}")
+                    imported_count += 1
+                    print(f"  [Fallback Added] {app_key} from {source_entry}")
 
     print(f" -> Imported {imported_count} individual Dark Glass fallback icons.")
 
@@ -1076,6 +1174,167 @@ def cross_bind_aliases(icons_dir, yamis_handled_keys):
     print(f"Total icon files in Space Neon build: {len(os.listdir(icons_dir))}")
 
 
+def generate_package_icons_xml(theme_dir, icons_dir):
+    """
+    Generates package_icons.xml for HiOS Launcher.
+    HiLauncher explicitly parses package_icons.xml from theme.zip / icons.zip
+    via Zip4jUtils to map ComponentName to exact icon assets.
+    """
+    print("Generating HiOS package_icons.xml mapping...")
+
+    # Explicit bindings for user target apps and critical disambiguations
+    explicit_targets = [
+        # Microsoft Authenticator
+        ("com.azure.authenticator/com.azure.authenticator.ui.LaunchActivity", "com_azure_authenticator"),
+        ("com.azure.authenticator", "com_azure_authenticator"),
+        ("com.azure.authenticator.ui.LaunchActivity", "com_azure_authenticator"),
+        ("com.azure.authenticator.ui.launchactivity", "com_azure_authenticator"),
+
+        # Google Search / App
+        ("com.google.android.googlequicksearchbox/com.google.android.googlequicksearchbox.SearchActivity", "com_google_android_googlequicksearchbox"),
+        ("com.google.android.googlequicksearchbox", "com_google_android_googlequicksearchbox"),
+        ("com.google.android.googlequicksearchbox.SearchActivity", "com_google_android_googlequicksearchbox"),
+
+        # NetGuard
+        ("eu.faircode.netguard/eu.faircode.netguard.ActivityMain", "eu_faircode_netguard"),
+        ("eu.faircode.netguard", "eu_faircode_netguard"),
+        ("eu.faircode.netguard.ActivityMain", "eu_faircode_netguard"),
+
+        # HiTheme
+        ("com.transsion.theme/com.transsion.theme.common.XThemeMain", "Theme"),
+        ("com.transsion.theme", "Theme"),
+        ("com.transsion.theme.common.XThemeMain", "Theme"),
+        ("com.transsion.xtheme", "Theme"),
+
+        # Binance
+        ("com.binance.dev/com.eaas.launcher.activities.main.MainActivity", "com_binance_dev"),
+        ("com.binance.dev", "com_binance_dev"),
+        ("com.eaas.launcher.activities.main.MainActivity", "com_binance_dev"),
+
+        # LinkedIn
+        ("com.linkedin.android/com.linkedin.android.authenticator.LaunchActivityDefault", "com_linkedin_android"),
+        ("com.linkedin.android", "com_linkedin_android"),
+        ("com.linkedin.android.authenticator.LaunchActivityDefault", "com_linkedin_android"),
+
+        # Snapchat
+        ("com.snapchat.android/com.snapchat.android.LandingPageActivity", "com_snapchat_android"),
+        ("com.snapchat.android", "com_snapchat_android"),
+        ("com.snapchat.android.LandingPageActivity", "com_snapchat_android"),
+
+        # Pinterest
+        ("com.pinterest/com.pinterest.activity.PinterestActivity", "com_pinterest"),
+        ("com.pinterest", "com_pinterest"),
+        ("com.pinterest.activity.PinterestActivity", "com_pinterest"),
+
+        # Figma
+        ("com.figma.mirror/com.figma.figma.MainActivity", "com_figma_mirror"),
+        ("com.figma.mirror", "com_figma_mirror"),
+        ("com.figma.figma.MainActivity", "com_figma_mirror"),
+
+        # SoloLearn
+        ("com.sololearn/com.sololearn.app.ui.launcher.LauncherActivity", "com_sololearn"),
+        ("com.sololearn", "com_sololearn"),
+        ("com.sololearn.app.ui.launcher.LauncherActivity", "com_sololearn"),
+
+        # F-Droid
+        ("org.fdroid.fdroid/org.fdroid.IconActivity", "org_fdroid_fdroid"),
+        ("org.fdroid.fdroid", "org_fdroid_fdroid"),
+        ("org.fdroid.IconActivity", "org_fdroid_fdroid"),
+        ("org.fdroid.fdroid/org.fdroid.fdroid.views.main.MainActivity", "org_fdroid_fdroid"),
+
+        # Chess.com
+        ("com.chess/com.chess.splash.SplashActivity", "com_chess"),
+        ("com.chess", "com_chess"),
+        ("com.chess.splash.SplashActivity", "com_chess"),
+
+        # Google Sheets
+        ("com.google.android.apps.docs.editors.sheets/com.google.android.apps.docs.app.NewMainProxyActivity", "com_google_android_apps_docs_editors_sheets"),
+        ("com.google.android.apps.docs.editors.sheets", "com_google_android_apps_docs_editors_sheets"),
+
+        # Google Drive
+        ("com.google.android.apps.docs/com.google.android.apps.docs.app.NewMainProxyActivity", "com_google_android_apps_docs"),
+        ("com.google.android.apps.docs", "com_google_android_apps_docs"),
+
+        # Google Docs
+        ("com.google.android.apps.docs.editors.docs/com.google.android.apps.docs.app.NewMainProxyActivity", "com_google_android_apps_docs_editors_docs"),
+        ("com.google.android.apps.docs.editors.docs", "com_google_android_apps_docs_editors_docs"),
+
+        # Google Slides
+        ("com.google.android.apps.docs.editors.slides/com.google.android.apps.docs.app.NewMainProxyActivity", "com_google_android_apps_docs_editors_slides"),
+        ("com.google.android.apps.docs.editors.slides", "com_google_android_apps_docs_editors_slides"),
+
+        # WPS Office
+        ("cn.wps.moffice_eng/cn.wps.moffice.documentmanager.ab.proxy.main", "cn_wps_moffice_eng"),
+        ("cn.wps.moffice_eng", "cn_wps_moffice_eng"),
+        ("cn.wps.moffice.documentmanager.ab.proxy.main", "cn_wps_moffice_eng"),
+
+        # DeepSeek
+        ("com.deepseek.chat/com.deepseek.chat.MainActivity", "com_deepseek_chat"),
+        ("com.deepseek.chat", "com_deepseek_chat"),
+        ("com.deepseek.chat.MainActivity", "com_deepseek_chat"),
+
+        # Kimi
+        ("com.moonshot.kimichat/com.moonshot.kimichat.MainActivity", "com_moonshot_kimichat"),
+        ("com.moonshot.kimichat", "com_moonshot_kimichat"),
+        ("com.moonshot.kimichat.MainActivity", "com_moonshot_kimichat"),
+
+        # Meta AI
+        ("com.facebook.metaai/com.facebook.metaai.MainActivity", "com_facebook_metaai"),
+        ("com.facebook.metaai", "com_facebook_metaai"),
+        ("com.facebook.metaai.MainActivity", "com_facebook_metaai"),
+
+        # Outlook
+        ("com.microsoft.office.outlook/com.microsoft.office.outlook.MainActivity", "com_microsoft_office_outlook"),
+        ("com.microsoft.office.outlook", "com_microsoft_office_outlook"),
+        ("com.microsoft.office.outlook.MainActivity", "com_microsoft_office_outlook"),
+
+        # Luma
+        ("com.luma.mobile/com.luma.mobile.MainActivity", "com_luma_mobile"),
+        ("com.luma.mobile", "com_luma_mobile"),
+        ("com.luma.mobile.MainActivity", "com_luma_mobile"),
+
+        # Google Authenticator
+        ("com.google.android.apps.authenticator2/com.google.android.apps.authenticator2.main.MainActivity", "com_google_android_apps_authenticator2"),
+        ("com.google.android.apps.authenticator2", "com_google_android_apps_authenticator2"),
+
+        # ChatGPT
+        ("com.openai.chatgpt/com.openai.chatgpt.MainActivity", "com_openai_chatgpt"),
+        ("com.openai.chatgpt", "com_openai_chatgpt"),
+        ("com.openai.chatgpt.MainActivity", "com_openai_chatgpt"),
+    ]
+
+    seen = set()
+    lines = ['<?xml version="1.0" encoding="utf-8"?>', "<icons>"]
+
+    for pkg, icon_name in explicit_targets:
+        if pkg not in seen:
+            lines.append(f'    <icon pkg="{pkg}" iconname="{icon_name}" />')
+            seen.add(pkg)
+
+    for base_key, aliases in PACKAGE_COMPONENT_ALIASES.items():
+        dot_pkg = base_key.replace("_", ".")
+        for item in [base_key, dot_pkg] + aliases:
+            if "." in item and "/" in item and item not in seen:
+                lines.append(f'    <icon pkg="{item}" iconname="{base_key}" />')
+                seen.add(item)
+            elif "." in item and item not in seen:
+                lines.append(f'    <icon pkg="{item}" iconname="{base_key}" />')
+                seen.add(item)
+
+    lines.append("</icons>")
+    xml_content = "\n".join(lines) + "\n"
+
+    # Write to theme_dir
+    with open(os.path.join(theme_dir, "package_icons.xml"), "w", encoding="utf-8") as f:
+        f.write(xml_content)
+
+    # Write to icons_dir
+    with open(os.path.join(icons_dir, "package_icons.xml"), "w", encoding="utf-8") as f:
+        f.write(xml_content)
+
+    print(f" -> package_icons.xml generated with {len(seen)} mapped endpoints.")
+
+
 def package_icons_zip(icons_dir, out_zip):
     """Creates standalone icons.zip matching OEM EasyDIY format (both root and icons/ paths)."""
     print(f"Packaging EasyDIY icon pack into {out_zip}...")
@@ -1094,10 +1353,8 @@ def process_wallpapers(theme_dir):
     print("Deploying Space Neon Wallpapers...")
     wp_dir = os.path.join(theme_dir, "Wallpaper")
     wp_lower_dir = os.path.join(theme_dir, "wallpaper")
-    wallpapers_dir = os.path.join(theme_dir, "wallpapers")
-    wallpapers_draw_dir = os.path.join(theme_dir, "wallpapers/drawable")
 
-    for d in [wp_dir, wp_lower_dir, wallpapers_dir, wallpapers_draw_dir]:
+    for d in [wp_dir, wp_lower_dir]:
         os.makedirs(d, exist_ok=True)
 
     home_wp_src = os.path.join(WALLPAPERS_DIR, "space-neon-orange-nebula-phone.jpg")
@@ -1108,12 +1365,16 @@ def process_wallpapers(theme_dir):
     if not os.path.exists(lock_wp_src):
         lock_wp_src = home_wp_src
 
-    for d in [wp_dir, wp_lower_dir, wallpapers_dir, wallpapers_draw_dir]:
-        shutil.copy(home_wp_src, os.path.join(d, "wallpaper.jpg"))
-        shutil.copy(home_wp_src, os.path.join(d, "home_wallpaper.jpg"))
-        shutil.copy(home_wp_src, os.path.join(d, "default_wallpaper.jpg"))
-        shutil.copy(lock_wp_src, os.path.join(d, "lockscreen_wallpaper.jpg"))
-        shutil.copy(lock_wp_src, os.path.join(d, "lock_wallpaper.jpg"))
+    # Optimize and save wallpapers into Transsion theme directories
+    with Image.open(home_wp_src) as home_im, Image.open(lock_wp_src) as lock_im:
+        home_im_rgb = home_im.convert("RGB")
+        lock_im_rgb = lock_im.convert("RGB")
+        for d in [wp_dir, wp_lower_dir]:
+            home_im_rgb.save(os.path.join(d, "wallpaper.jpg"), "JPEG", quality=85, optimize=True)
+            home_im_rgb.save(os.path.join(d, "home_wallpaper.jpg"), "JPEG", quality=85, optimize=True)
+            home_im_rgb.save(os.path.join(d, "default_wallpaper.jpg"), "JPEG", quality=85, optimize=True)
+            lock_im_rgb.save(os.path.join(d, "lockscreen_wallpaper.jpg"), "JPEG", quality=85, optimize=True)
+            lock_im_rgb.save(os.path.join(d, "lock_wallpaper.jpg"), "JPEG", quality=85, optimize=True)
 
 
 def generate_previews(theme_dir):
@@ -1130,17 +1391,19 @@ def generate_previews(theme_dir):
     existing_cover = os.path.join(BASE_DIR, "preview_cover.jpg")
     existing_preview = os.path.join(BASE_DIR, "preview.jpg")
 
-    for d in [prev_dir, prev_lower_dir]:
-        shutil.copy(existing_cover, os.path.join(d, "cover.jpg"))
-        shutil.copy(existing_preview, os.path.join(d, "preview_launcher_0.jpg"))
-        shutil.copy(existing_cover, os.path.join(d, "preview_lockscreen_0.jpg"))
-        shutil.copy(existing_preview, os.path.join(d, "preview_0.jpg"))
-        shutil.copy(existing_cover, os.path.join(d, "preview_1.jpg"))
+    with Image.open(existing_preview) as prev_im, Image.open(existing_cover) as cover_im:
+        prev_rgb = prev_im.convert("RGB")
+        cover_rgb = cover_im.convert("RGB")
+        for d in [prev_dir, prev_lower_dir]:
+            cover_rgb.save(os.path.join(d, "cover.jpg"), "JPEG", quality=82, optimize=True)
+            prev_rgb.save(os.path.join(d, "preview_launcher_0.jpg"), "JPEG", quality=82, optimize=True)
+            cover_rgb.save(os.path.join(d, "preview_lockscreen_0.jpg"), "JPEG", quality=82, optimize=True)
+            prev_rgb.save(os.path.join(d, "preview_0.jpg"), "JPEG", quality=82, optimize=True)
+            cover_rgb.save(os.path.join(d, "preview_1.jpg"), "JPEG", quality=82, optimize=True)
 
-    with Image.open(existing_preview) as im:
-        thumb = im.resize((450, 1000), Image.Resampling.LANCZOS)
+        thumb = prev_rgb.resize((450, 1000), Image.Resampling.LANCZOS)
         for d in [thumb_dir, thumb_lower_dir, prev_dir, prev_lower_dir]:
-            thumb.save(os.path.join(d, "thumbnail.jpg"), "JPEG", quality=90)
+            thumb.save(os.path.join(d, "thumbnail.jpg"), "JPEG", quality=85, optimize=True)
 
 
 def create_manifests_and_app_resources(theme_dir):
@@ -1214,28 +1477,36 @@ def create_manifests_and_app_resources(theme_dir):
 
 
 def package_theme_archives(theme_dir):
-    """Packages the complete theme into SpaceNeonMinimal.zth and SpaceNeonMinimal.xth."""
+    """Packages the complete theme into SpaceNeonMinimal.zth and symlinks SpaceNeonMinimal.xth."""
     print("Packaging Space Neon .zth and .xth Theme Files...")
     zth_path = os.path.join(BASE_DIR, "SpaceNeonMinimal.zth")
     xth_path = os.path.join(BASE_DIR, "SpaceNeonMinimal.xth")
 
-    for archive_path in [zth_path, xth_path]:
-        if os.path.exists(archive_path):
-            os.remove(archive_path)
+    if os.path.islink(zth_path) or os.path.exists(zth_path):
+        os.remove(zth_path)
+    if os.path.islink(xth_path) or os.path.exists(xth_path):
+        os.remove(xth_path)
 
-        with zipfile.ZipFile(archive_path, "w", zipfile.ZIP_DEFLATED) as zipf:
-            for root, dirs, files in os.walk(theme_dir):
-                for f in files:
-                    full_p = os.path.join(root, f)
-                    rel_p = os.path.relpath(full_p, theme_dir)
-                    zipf.write(full_p, rel_p)
-                    # Support HiOS / XOS dual case sensitivity: both icons/ and Icons/
-                    if rel_p.startswith("icons/"):
-                        icon_rel = "Icons/" + rel_p[len("icons/") :]
-                        zipf.write(full_p, icon_rel)
+    with zipfile.ZipFile(zth_path, "w", zipfile.ZIP_DEFLATED) as zipf:
+        for root, dirs, files in os.walk(theme_dir):
+            for f in files:
+                full_p = os.path.join(root, f)
+                rel_p = os.path.relpath(full_p, theme_dir)
+                zipf.write(full_p, rel_p)
+                # Support HiOS / XOS dual case sensitivity: both icons/ and Icons/
+                if rel_p.startswith("icons/"):
+                    icon_rel = "Icons/" + rel_p[len("icons/") :]
+                    zipf.write(full_p, icon_rel)
 
-    print(f" -> HiOS Package:    {zth_path} ({os.path.getsize(zth_path) // 1024} KB)")
-    print(f" -> XOS Package:     {xth_path} ({os.path.getsize(xth_path) // 1024} KB)")
+    # Create symlink for XOS (.xth) pointing to .zth to prevent duplicating ~100MB on disk
+    try:
+        os.symlink("SpaceNeonMinimal.zth", xth_path)
+        print(f" -> HiOS Package:    {zth_path} ({os.path.getsize(zth_path) // 1024} KB)")
+        print(f" -> XOS Package:     {xth_path} (Symlink -> SpaceNeonMinimal.zth)")
+    except OSError:
+        shutil.copyfile(zth_path, xth_path)
+        print(f" -> HiOS Package:    {zth_path} ({os.path.getsize(zth_path) // 1024} KB)")
+        print(f" -> XOS Package:     {xth_path} ({os.path.getsize(xth_path) // 1024} KB)")
 
 
 def main():
@@ -1266,6 +1537,9 @@ def main():
 
     # 4. Cross-bind all aliases, component names, and launcher activities
     cross_bind_aliases(icons_dir, yamis_handled_keys)
+
+    # 4b. Generate package_icons.xml for deterministic ComponentName resolution in HiLauncher
+    generate_package_icons_xml(THEME_SRC_DIR, icons_dir)
 
     # 5. Standalone EasyDIY icons.zip
     package_icons_zip(icons_dir, os.path.join(BASE_DIR, "icons.zip"))
