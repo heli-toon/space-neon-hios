@@ -30,7 +30,7 @@ Deep space blacks (`#0A0A0B`), grayscale hierarchy, and vibrant neon orange (`#F
 space-neon-hios/
 ├── SpaceNeonMinimal.zth       # Ready-to-apply Tecno HiOS theme package
 ├── SpaceNeonMinimal.xth       # Ready-to-apply Infinix XOS theme package
-├── preview.jpg                # Homescreen preview mockup
+├── preview.jpg                # Actual HiOS homescreen preview screenshot
 ├── adb_deploy.sh              # 1-click ADB deploy script for connected phones
 ├── README.md                  # This file
 ├── INSTALL_HIOS.md            # Detailed HiOS manual installation guide
@@ -42,7 +42,7 @@ space-neon-hios/
 │   ├── manifest.xml           # Module definitions
 │   ├── Icons/                 # Package-mapped 192x192 squircle PNGs + mask fallbacks
 │   ├── Wallpaper/             # Theme wallpapers (default, home, lock)
-│   ├── Preview/               # Homescreen & lockscreen store mockups
+│   ├── Preview/               # Homescreen & lockscreen theme previews
 │   └── Thumbnail/             # HiTheme DIY picker thumbnail
 ├── wallpapers/                # 6 mobile (1080x2400) + desktop wallpapers
 ├── raw_monochrome_pngs_256/   # 256x256 transparent PNGs for desktop tools
